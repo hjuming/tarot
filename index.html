@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神秘塔羅牌占卜 - 探索自我，洞見未來</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Serif TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Serif TC', serif;
+        }
+        .starry-bg {
+            background-color: #0c1422;
+            background-image:
+                radial-gradient(white, rgba(255, 255, 255, 0.1) 1px, transparent 20px),
+                radial-gradient(white, rgba(255, 255, 255, 0.08) 1px, transparent 15px);
+            background-size: 350px 350px, 250px 250px;
+            background-position: 0 0, 130px 270px;
+        }
+        .tarot-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tarot-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(251, 191, 36, 0.1), 0 8px 10px -6px rgba(251, 191, 36, 0.1);
+        }
+        .tab-btn.active {
+            background-color: #facc15;
+            color: #111827;
+            border-bottom-color: transparent;
+        }
+        /* Modal styles */
+        .modal-content {
+             max-height: 80vh;
+        }
+        /* Custom scrollbar for modal */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: #1f2937; /* gray-800 */
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: #4f46e5; /* indigo-600 */
+            border-radius: 10px;
+            border: 2px solid #1f2937; /* gray-800 */
+        }
+    </style>
+</head>
+<body class="starry-bg text-gray-300">
+
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <!-- Header -->
+        <header class="text-center my-8 md:my-16">
+            <h1 class="text-4xl md:text-6xl font-bold text-yellow-300 tracking-wider" style="text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">
+                線上塔羅神諭
+            </h1>
+            <p class="text-lg md:text-xl mt-4 text-indigo-200">探索自我・洞見未來</p>
+        </header>
+
+        <!-- Introduction Section -->
+        <section id="intro" class="bg-gray-900 bg-opacity-60 backdrop-blur-sm rounded-xl p-6 md:p-10 my-12 shadow-2xl ring-1 ring-gray-700">
+            <h2 class="text-3xl font-bold text-yellow-300 mb-6 border-b-2 border-yellow-400 border-opacity-50 pb-3">塔羅的智慧之旅</h2>
+            <div class="space-y-6 text-base md:text-lg leading-relaxed">
+                <p>塔羅牌不僅僅是一種預測未來的工具，其更深層次的目的是為了解決問題、認識自我。它是一套透過圖像來認識自我、覺察問題的牌卡。因此，使用塔羅牌應以解決生活問題、探索內心、尋找人生方向為核心目的，而非僅僅追求預測的準確度。學習的過程本身，就是透過牌卡來體驗生命、讓心靈變得更好。</p>
+                <div class="grid md:grid-cols-2 gap-8 pt-4">
+                    <div class="bg-black bg-opacity-20 p-6 rounded-lg ring-1 ring-gray-800">
+                        <h3 class="text-xl font-semibold text-indigo-300 mb-3">心態建立</h3>
+                        <p>進行占卜時，應保持尊重與心誠則靈的態度。避免在精神不濟或情緒不佳時占卜，以確保能接收到清晰的指引。使用者應將塔羅牌視為良師益友，一種陪伴個人成長的工具。</p>
+                    </div>
+                    <div class="bg-black bg-opacity-20 p-6 rounded-lg ring-1 ring-gray-800">
+                        <h3 class="text-xl font-semibold text-indigo-300 mb-3">破除迷思</h3>
+                        <p>塔羅牌本身沒有神秘能量，其力量源於使用者的潛意識。占卜並非宿命論，而是引導人們創造自己的命運；如果心態或行動改變，結果也會隨之改變。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divination Section -->
+        <section id="divination" class="bg-gray-900 bg-opacity-60 backdrop-blur-sm rounded-xl p-6 md:p-10 my-12 shadow-2xl ring-1 ring-gray-700">
+            <h2 class="text-3xl font-bold text-yellow-300 mb-6 border-b-2 border-yellow-400 border-opacity-50 pb-3">線上塔羅占卜</h2>
+            
+            <div class="space-y-4 mb-8 text-base md:text-lg leading-relaxed">
+                <p>塔羅占卜需要一個明確的問題才能得到清晰的答案。請在心中默想一個您想了解的問題，例如「未來三個月的工作發展如何？」然後選擇下方的牌陣開始占卜。</p>
+            </div>
+
+            <!-- Tab buttons -->
+            <div class="mb-8 flex justify-center border-b border-gray-700">
+                <button id="tab-cause-effect" class="tab-btn active text-lg font-semibold py-3 px-6 border-b-4 border-transparent" data-spread="cause-effect">因果牌陣</button>
+                <button id="tab-time-stream" class="tab-btn text-lg font-semibold py-3 px-6 border-b-4 border-transparent" data-spread="time-stream">時間之流牌陣</button>
+            </div>
+
+            <!-- Tab content -->
+            <div id="cause-effect-spread" class="tab-content">
+                <p class="text-center mb-6 max-w-2xl mx-auto">此牌陣適合新手，只抽兩張牌，直接從最核心的<span class="font-semibold text-yellow-300">因果</span>關係入手，了解事件的發展趨勢。</p>
+                <div class="text-center my-10">
+                    <button class="draw-cards-btn bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-lg text-xl shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-400 focus:ring-opacity-50" data-count="2">
+                        開始抽牌
+                    </button>
+                </div>
+                <div class="mt-10">
+                    <h4 class="text-xl font-semibold text-center mb-6">您的抽牌結果 (因果牌陣)</h4>
+                    <div id="cause-effect-results" class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 min-h-[280px]">
+                        <!-- Results will be injected here -->
+                    </div>
+                    <div id="cause-effect-analysis" class="mt-10 pt-6 border-t border-gray-700">
+                        <!-- Analysis will be injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="time-stream-spread" class="tab-content hidden">
+                 <p class="text-center mb-6 max-w-2xl mx-auto">此牌陣抽三張牌，用來了解一個事件從<span class="font-semibold text-yellow-300">過去</span>、<span class="font-semibold text-yellow-300">現在</span>到<span class="font-semibold text-yellow-300">未來</span>的演變，並預測未來的可能發展。</p>
+                 <div class="text-center my-10">
+                    <button class="draw-cards-btn bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-8 rounded-lg text-xl shadow-lg transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-400 focus:ring-opacity-50" data-count="3">
+                        開始抽牌
+                    </button>
+                </div>
+                <div class="mt-10">
+                    <h4 class="text-xl font-semibold text-center mb-6">您的抽牌結果 (時間之流)</h4>
+                    <div id="time-stream-results" class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 min-h-[280px]">
+                        <!-- Results will be injected here -->
+                    </div>
+                    <div id="time-stream-analysis" class="mt-10 pt-6 border-t border-gray-700">
+                         <!-- Analysis will be injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Form Section -->
+            <div id="email-section" class="mt-12 pt-8 border-t border-gray-700 border-opacity-50 hidden">
+                <h4 class="text-xl font-semibold text-center mb-4 text-yellow-300">寄送詳細分析報告</h4>
+                <p class="text-center mb-6 max-w-2xl mx-auto">想獲得更深入的個人化牌義詳解嗎？輸入您的電子信箱，我們將會把完整的分析報告寄送給您。</p>
+                <div class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                    <input id="email-input" type="email" placeholder="請輸入您的電子信箱" class="w-full bg-gray-900 bg-opacity-70 text-white rounded-md py-3 px-4 border border-gray-600 focus:ring-2 focus:ring-indigo-400 focus:outline-none placeholder-gray-500">
+                    <button id="send-email-btn" class="bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold py-3 px-6 rounded-md shadow-md transition-colors whitespace-nowrap">
+                        寄送報告
+                    </button>
+                </div>
+                <p class="text-center mt-4 text-xs text-gray-500 max-w-md mx-auto">🔒 隱私聲明：您的資料僅用於寄送本次報告，系統不會保存你的資料與占卜結果。寄送完成後即時處理。若想再次取得報告，請重新占卜。</p>
+                <p id="email-status" class="text-center mt-4 h-6"></p>
+                <div id="restart-section" class="text-center mt-4 hidden">
+                    <a href="https://taro.pages.dev/" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-lg shadow-md transition-colors">
+                        重新占卜
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card Meanings Section -->
+        <section id="cards" class="my-16">
+            <h2 class="text-3xl font-bold text-center text-yellow-300 mb-10">78張塔羅牌義詳解</h2>
+            <div id="card-grid-container">
+                <!-- Card grid will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 py-8">
+            <p>&copy; 2025 線上塔羅神諭. All Rights Reserved.</p>
+        </footer>
+
+    </div>
+
+    <!-- Modal for Card Details -->
+    <div id="card-modal" class="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm flex justify-center items-center p-4 hidden z-50">
+        <div class="bg-gray-800 text-gray-300 rounded-2xl shadow-2xl w-full max-w-4xl ring-1 ring-yellow-400 ring-opacity-50 relative">
+            <button id="close-modal-btn" class="absolute top-3 right-4 text-gray-400 hover:text-white transition-colors text-4xl font-light">&times;</button>
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/3 p-6 flex-shrink-0 flex flex-col items-center">
+                    <img id="modal-card-image" src="" alt="" class="rounded-lg w-full max-w-[200px] shadow-lg border-2 border-gray-700">
+                    <h3 id="modal-card-name" class="text-2xl font-bold text-yellow-300 mt-4 text-center"></h3>
+                    <p id="modal-card-type" class="text-indigo-300 text-center"></p>
+                </div>
+                <div class="md:w-2/3 p-6 modal-content overflow-y-auto border-t md:border-t-0 md:border-l border-gray-700">
+                    <div class="space-y-6 text-base md:text-lg leading-relaxed">
+                        <div>
+                            <h4 class="text-xl font-semibold text-indigo-300 mb-2 border-b-2 border-indigo-400 border-opacity-30 pb-1">核心概念</h4>
+                            <p id="modal-card-description"></p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-indigo-300 mb-2 border-b-2 border-indigo-400 border-opacity-30 pb-1">正位牌義</h4>
+                            <p id="modal-upright-meaning"></p>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-semibold text-indigo-300 mb-2 border-b-2 border-indigo-400 border-opacity-30 pb-1">逆位牌義</h4>
+                            <p id="modal-reversed-meaning"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const cardDetails = {
+            "愚人": {
+                "type": "大牌",
+                "description": "作為大牌，代表宇宙性的宏觀能量與生命課題。這是「愚者之旅」的起點，象徵純真、潛力與旅程的開端，編號0代表無限的可能性。",
+                "imageUrl": "https://i.urusai.cc/myiOW.jpeg",
+                "upright": "天真、大膽、充滿潛力、熱愛冒險、無拘無束、新的開始、旅行。憑感覺行事，不計後果，活在當下。可能代表一段新旅程或大膽的行動。",
+                "reversed": "逆位可能代表正位特質的過度或不足。例如天真變成愚蠢、大膽變成魯莽，行事瘋狂。也可能代表能量被壓抑，變得過於小心而錯失良機，膽小怕事。"
+            },
+            "魔術師": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是「愚者之旅」的第一步，學習運用資源與能力，將想法化為現實。他是所有數字的開端，扮演著連接大牌與小牌的橋樑角色。",
+                "imageUrl": "https://i.urusai.cc/V3gw6.jpeg",
+                "upright": "創造力、溝通、技能、自信、萬事俱備、新計畫、主動。思路清晰，交際手腕佳。能將想法化為現實，是開始新計畫的好時機。",
+                "reversed": "逆位可能暗示能量的誤用，將聰明才智用在錯誤的地方，變成欺騙或詐欺。也可能代表能量不足，失去自信與決心，導致計畫無法控制。"
+            },
+            "女祭司": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是「愚者之旅」的內在探索階段，學習探索內在的智慧與直覺，連結潛意識的奧秘。",
+                "imageUrl": "https://i.urusai.cc/VNb65.jpeg",
+                "upright": "直覺、智慧、神秘、靜默、消極、被動。傾聽內心的聲音，擁有內在的智慧。在感情上通常代表單戀、暗戀或獨身。",
+                "reversed": "逆位可能代表內在潛能被壓抑，忽視直覺，只相信膚淺的表面知識。也可能代表能量反轉，變得異常熱情與主動，但失去內在智慧。"
+            },
+            "皇后": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的母性原型，學習關於孕育、創造、豐饒與感官享受的課題，代表大地之母的滋養力量。",
+                "imageUrl": "https://i.urusai.cc/wVEX3.jpeg",
+                "upright": "豐收、生產、創造、母愛、美麗、歡樂、熱情。代表感性、愛與美的展現，重視感官享受。可能代表懷孕、結婚或一段快樂的戀情。",
+                "reversed": "逆位可能代表能量的不足或過度。不足時可能情感壓抑、不願付出關懷；過度時則可能感性氾濫，缺乏理智。也可能指懷孕相關問題。"
+            },
+            "皇帝": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的父性原型，學習關於秩序、權威、結構與統治的課題，代表社會規範與領導力。",
+                "imageUrl": "https://i.urusai.cc/xkvjL.jpeg",
+                "upright": "父親、權力、秩序、統治、自律、穩定。代表權威與領導力，重視規範與結構。行事理性，缺乏情感交流，有責任感。",
+                "reversed": "逆位可能代表能量的濫用，變成專制、控制慾過強的暴君。也可能代表能量不足，變得軟弱、不成熟、缺乏責任感。"
+            },
+            "教宗": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的導師，學習傳統、道德與社會規範，尋求心靈的指引與歸屬感。代表教育與團體。",
+                "imageUrl": "https://i.urusai.cc/z233n.jpeg",
+                "upright": "傳統、宗教、儀式、教育、道德、社會規範、貴人相助。代表心靈成長與傳統價值觀，可能獲得長輩或專業人士的幫助。",
+                "reversed": "逆位通常代表與傳統相反的意義，例如打破常規、標新立異。也可能代表能量過度，變得太保守、太固執，或接收到錯誤的建議。"
+            },
+            "戀人": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的關係課題，學習關於選擇、結合與和諧。代表的不只是愛情，更是價值觀的整合與抉擇。",
+                "imageUrl": "https://i.urusai.cc/wf8po.jpeg",
+                "upright": "愛情、選擇、結合、人際關係、和諧。代表成功的結合與溝通，可能面臨重大抉擇。感情上是個好消息，吸引力強。",
+                "reversed": "逆位代表相反的意義，可能指分離、對立、失戀。也暗示錯誤的選擇或決策，導致人際關係出現問題，合夥失敗。"
+            },
+            "戰車": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的意志力展現，學習透過強大的意志力與自律來克服障礙，贏得勝利。",
+                "imageUrl": "https://i.urusai.cc/dx9Sn.jpeg",
+                "upright": "勝利、意志力、自律、競爭、旅程。有強烈的野心與專注力，能克服困難達成目標。代表堅定不移的信心與決心。",
+                "reversed": "逆位代表能量的失控或不足。可能因野心過盛、魯莽而導致失敗；或缺乏自律與決心而無法前進。旅程也可能延期或發生意外。"
+            },
+            "力量": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的內在修為，學習以柔克剛，用內在的勇氣與耐心去馴服本能的慾望。",
+                "imageUrl": "https://i.urusai.cc/bnHGo.jpeg",
+                "upright": "勇氣、信心、耐心、以柔克剛、內在力量。用內心的堅韌馴服內在的獸性。面對人生難題時，內心堅強，信心十足。",
+                "reversed": "逆位代表相反的意義，如軟弱、無能、失去信心。也可能指能量被壓抑，無法駕馭自己的情感；或是權力的濫用。"
+            },
+            "隱士": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的內省階段，暫時遠離塵囂，向內尋求智慧與真理。代表獨處、沉思與尋求指引。",
+                "imageUrl": "https://i.urusai.cc/GOq3k.jpeg",
+                "upright": "內省、孤獨、指引、謹慎、智慧。遠離人群，向內探求，尋找答案。代表心靈導師或有智慧的長者。",
+                "reversed": "逆位代表能量的過度，過度孤獨導致孤僻、憤世嫉俗。也可能失去謹慎的特質，變得粗心大意，無法接受他人忠告。"
+            },
+            "命運之輪": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的轉捩點，體驗人生的起伏與無法控制的命運轉變。代表週期、改變與新的契機。",
+                "imageUrl": "https://i.urusai.cc/zkpMV.jpeg",
+                "upright": "轉變、契機、幸運、進展、命運。人生的轉捩點，通常是好的轉變。把握機會，改造命運。",
+                "reversed": "逆位如同輪子往下轉，代表不幸、厄運、停滯。也可能指當事人抗拒改變，錯失良機。但壞運只是暫時的。"
+            },
+            "正義": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的因果法則，學習為自己的選擇負責，並以理性與公正的態度做出決定。代表平衡與法律。",
+                "imageUrl": "https://i.urusai.cc/E2Wyi.jpeg",
+                "upright": "公正、平衡、決定、法律、誠實。用理性思考做出最公正的決定，並為此負責。可能與法律事務或合約簽訂有關。",
+                "reversed": "逆位代表相反的意義，如不公、偏見。也可能指猶豫不決、逃避責任，或是在法律上受到不公平的對待。"
+            },
+            "吊人": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的犧牲與領悟，透過暫時的停滯與犧牲，從不同的角度看待事物，獲得更高層次的智慧。",
+                "imageUrl": "https://i.urusai.cc/pkaQf.jpeg",
+                "upright": "犧牲、等待、換個角度、以退為進。自願的犧牲以換取更有價值的收穫。提醒我們保持彈性，用不同角度看世界。",
+                "reversed": "從牌面演繹，逆位時吊人不再倒吊，因而失去「換個角度」的智慧。代表無謂的犧牲、鑽牛角尖，或因受社會眼光制約而不敢做自己。"
+            },
+            "死神": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的結束與重生，面對不可避免的結束，放下過去，迎向全新的開始。代表徹底的轉變。",
+                "imageUrl": "https://i.urusai.cc/SUe7O.jpeg",
+                "upright": "結束、轉變、新生、告別。某種狀態的結束，雖痛苦但帶來新生。代表徹底的改變與重新開始。",
+                "reversed": "逆位代表被壓抑的情緒，當事人不願接受結束的事實，抗拒改變、沉溺過去，導致轉變停滯，痛苦延長。"
+            },
+            "節制": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的調和與療癒，在經歷轉變後，學習整合內外在的能量，找到平衡與和諧。",
+                "imageUrl": "https://i.urusai.cc/TN1aj.jpeg",
+                "upright": "中庸、調和、溝通、適應、療癒。代表不同能量的成功融合，善於溝通與協調，創造雙贏。也與旅行和教學有關。",
+                "reversed": "逆位代表能量的失衡或過度，行事走極端，失去耐心。也可能指溝通不良、適應力差，導致衝突。"
+            },
+            "惡魔": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的慾望與束縛，面對物質世界的誘惑，覺察內心的慾望與執著，學習掙脫自我設限的枷鎖。",
+                "imageUrl": "https://i.urusai.cc/hGBJS.jpeg",
+                "upright": "慾望、束縛、沉迷、物質主義。被物質慾望所困，成為慾望的奴隸。可能代表一段不健康的關係或沉迷於某種惡習。",
+                "reversed": "逆位可以代表相反的意義，即脫離束縛、得到自由。但也可能代表能量的濫用，使用不正當手段滿足慾望，導致更深的墮落。"
+            },
+            "塔": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的覺醒，經歷突如其來的衝擊，摧毀舊有的信念與結構，從而獲得解放與天啟。",
+                "imageUrl": "https://i.urusai.cc/6yuLx.jpeg",
+                "upright": "遽變、災難、破壞、天啟、覺醒。突如其來的改變，摧毀舊有結構與信念。雖痛苦但能帶來解放與成長。",
+                "reversed": "逆位代表能量的減弱，改變不如正位劇烈，但可能因壓抑而錯失成長機會，將自己囚禁在舊有模式中，逃避災難。"
+            },
+            "星星": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的希望與療癒，在經歷混亂後，重新找回内心的平靜與信念，得到宇宙的祝福與指引。",
+                "imageUrl": "https://i.urusai.cc/el0N1.jpeg",
+                "upright": "希望、信心、寧靜、和平、療癒。在劇變後找到內心的平靜與希望。與潛意識連結，得到心靈的療癒。",
+                "reversed": "逆位代表能量的減弱或相反，失去希望與信心，感到絕望、沮喪。內心潛能被壓抑，不信任他人與自己。"
+            },
+            "月亮": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的潛意識探索，深入內心最幽暗的角落，面對未知的恐懼與幻象，從而獲得更深的智慧。",
+                "imageUrl": "https://i.urusai.cc/4TPBJ.jpeg",
+                "upright": "不安、恐懼、幻覺、神秘、潛意識。內心深處的恐懼浮現，看不清真相。代表一段充滿迷惘與挑戰的時期。",
+                "reversed": "逆位代表恐懼的減輕，真相逐漸浮現。也可能指被壓抑的恐懼，雖然表面平靜，但內心依然不安。"
+            },
+            "太陽": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的光明與成功，在經歷黑暗後，迎來光明、喜悅與成功。代表清晰、活力與全然的幸福。",
+                "imageUrl": "https://i.urusai.cc/yVqvp.jpeg",
+                "upright": "成功、快樂、自由、活力、光明。代表全方位的成功與喜悅，充滿自信與能量。一切都非常順利，是最好的牌之一。",
+                "reversed": "逆位代表能量的減弱，快樂的程度不如預期，成功可能延遲。但整體上仍然是正面的，只是光明中帶有一絲陰影。"
+            },
+            "審判": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是愚者之旅中的重生與召喚，回顧過去的生命，接受內心的召喚，做出重要的決定，迎向生命的下一個篇章。",
+                "imageUrl": "https://i.urusai.cc/32YH1.jpeg",
+                "upright": "復活、重生、召喚、決定、因果。人生的重要轉捩點，接受內心的召喚，迎向新的階段。過去的業力得到結算。",
+                "reversed": "逆位代表被壓抑的狀態，當事人害怕改變，逃避做出關鍵決定，因而錯失良機，停滯不前。"
+            },
+            "世界": {
+                "type": "大牌",
+                "description": "作為大牌，代表一個重大的生命課題。這是「愚者之旅」的終點，代表一個循環的圓滿結束，達成目標，身心靈達到整合與和諧。",
+                "imageUrl": "https://i.urusai.cc/UKTLH.jpeg",
+                "upright": "完成、完美、成功、整合、旅行。代表一個循環的圓滿結束，達成目標，享受成功的果實。也可能代表長途旅行。",
+                "reversed": "逆位代表能量的不足或延遲。事情無法順利完成，感到不滿足與停滯。一個循環即將結束，但當事人可能抗拒進入新階段。"
+            },
+            "權杖一": {
+                "type": "數字牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動與創造力。數字一象徵全新的開始。這張牌是行動與靈感的火花，一個充滿潛力的新計畫的開端。",
+                "imageUrl": "https://i.urusai.cc/gCsOt.jpeg",
+                "upright": "新行動、創造、機會、靈感。代表一個充滿潛力的開始，有新的計畫或想法出現，是實現夢想的好時機。",
+                "reversed": "逆位代表能量的延遲或不足。新行動可能面臨困難，或因缺乏決心與計畫導致機會流失。"
+            },
+            "權杖二": {
+                "type": "數字牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動。數字二象徵結合與選擇。這張牌描繪在行動之前，需要權衡利弊，進行計畫與抉擇的階段。",
+                "imageUrl": "https://i.urusai.cc/4X54O.jpeg",
+                "upright": "計畫、決定、權力、膽識。在成功基礎上制定未來計畫，展現領導力與遠見。思考兩種選擇，權衡利弊。",
+                "reversed": "逆位代表能量的不足，可能因恐懼而優柔寡斷，不敢行動。也可能指計畫錯誤，缺乏遠見，導致停滯不前。"
+            },
+            "權杖三": {
+                "type": "數字牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動。數字三象徵初步成果。這張牌是計畫開始執行，並看到了初步的合作成果，需要向外探索。",
+                "imageUrl": "https://i.urusai.cc/Qv7wY.jpeg",
+                "upright": "合作、領導、遠見、貿易、探索。計畫開始執行並看到初步成果，需要團隊合作。向外探索新領域。",
+                "reversed": "逆位代表能量的延遲或誤用。可能因缺乏合作或計畫不周而導致失敗，好高騖遠，不切實際。"
+            },
+            "權杖四": {
+                "type": "數字牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動。數字四象徵穩定與秩序。這張牌描繪在初步成功後，進入一個穩定、和諧且值得慶祝的階段。",
+                "imageUrl": "https://i.urusai.cc/P9vMq.jpeg",
+                "upright": "慶祝、和諧、穩定、歸屬感。在穩定的基礎上慶祝成功，享受家庭與社群的和諧。也可能代表婚禮或慶典。",
+                "reversed": "逆位代表穩定被打破，缺乏和諧。也可能指慶祝延後，或內心無法感受到歸屬感與平靜。"
+            },
+            "權杖五": {
+                "type": "數字牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動。數字五象徵衝突與蛻變。這張牌描繪在行動中遇到的競爭、衝突或混亂，是成長的契機。",
+                "imageUrl": "https://i.urusai.cc/Hj53f.jpeg",
+                "upright": "衝突、競爭、鬥爭、混亂。代表良性的競爭或無意義的爭吵，需要整合不同意見以達成共識。",
+                "reversed": "逆位代表能量的濫用，良性競爭演變為惡性鬥爭，可能涉及法律問題或不公平的手段，衝突加劇。"
+            },
+            "權杖六": {
+                "type": "數字牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動。數字六象徵分享與和諧。這張牌描繪在衝突之後贏得勝利，並與眾人分享榮耀。",
+                "imageUrl": "https://i.urusai.cc/z1BJd.jpeg",
+                "upright": "勝利、進展、自信、好消息。在競爭中脫穎而出，獲得成功與認可。充滿自信，迎來好消息。",
+                "reversed": "逆位代表相反的意義，勝利變成失敗。也可能指能量過度，因過度驕傲而失去他人支持。可能收到壞消息。"
+            },
+            "權杖七": {
+                "type": "數字牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動。數字七象徵內省與奮鬥。這張牌描繪為了捍衛自己的立場而勇敢地面對挑戰，雖處於劣勢但仍有勝算。",
+                "imageUrl": "https://i.urusai.cc/ri4bD.jpeg",
+                "upright": "防禦、挑戰、勇氣、有利的位置。面對挑戰時，勇敢地捍衛自己的立場。雖然艱難，但成功率很高。",
+                "reversed": "從牌面演繹，逆位時從有利位置落下，失去優勢。代表不知所措、焦慮，甚至可能選擇投降。"
+            },
+            "權杖八": {
+                "type": "數字牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動。數字八象徵快速行動。這張牌描繪事情進展迅速，充滿能量與動感，可能代表旅行或突如其來的消息。",
+                "imageUrl": "https://i.urusai.cc/M5Flf.jpeg",
+                "upright": "迅速、旅行、行動、消息。事情進展快速，可能是突如其來的旅行或消息。需要快速反應。",
+                "reversed": "逆位代表時間點的差異，事情進展延遲或受阻。也可能指能量過度，步調太快而導致失控。"
+            },
+            "權杖九": {
+                "type": "數字牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動。數字九象徵成果與獨處。這張牌描繪在接近成功時，仍需保持警覺，準備迎接最後的挑戰。",
+                "imageUrl": "https://i.urusai.cc/H2AjL.jpeg",
+                "upright": "警覺、固執、防禦、經驗、等待。經歷過去的戰鬥後，保持警惕，準備迎接下一次挑戰。需要耐心與毅力。",
+                "reversed": "逆位代表能量不足，感到精疲力竭，想要放棄防禦。也可能指過於固執己見而無法接受幫助，導致失敗。"
+            },
+            "權杖十": {
+                "type": "數字牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動。數字十象徵完成與轉化。這張牌描繪因承擔過多責任而感到壓力沉重，是放下重擔的契機。",
+                "imageUrl": "https://i.urusai.cc/P1S56.jpeg",
+                "upright": "負擔、壓力、責任、過勞。承擔過多的責任與壓力，感到精疲力竭。需要學會放手或尋求幫助。",
+                "reversed": "逆位代表時間點的差異，即將放下重擔，或已經意識到不堪重負而開始解脫。也可能代表逃避責任。"
+            },
+            "權杖侍者": {
+                "type": "宮廷牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動與熱情。侍者是學習者，對世界充滿好奇。此牌代表一位對新事物充滿熱情、準備開始探索的年輕人。",
+                "imageUrl": "https://i.urusai.cc/12HwY.jpeg",
+                "upright": "探索、熱情、新消息、學習。對新事物充滿好奇與熱情，代表一個新機會或學習的開始。",
+                "reversed": "逆位代表能量不足或受阻，可能收到令人失望的壞消息，或因猶豫不決而缺乏方向感。"
+            },
+            "權杖騎士": {
+                "type": "宮廷牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動與熱情。騎士是行動者，充滿動能。此牌代表一個充滿活力、迅速採取行動、但可能有些急躁的年輕人。",
+                "imageUrl": "https://i.urusai.cc/HUSWA.jpeg",
+                "upright": "行動、熱情、旅行、有活力。充滿能量與熱情，迅速採取行動。可能代表搬家、旅行或一個充滿活力的年輕人。",
+                "reversed": "逆位代表能量的過度，行動過於倉促魯莽而導致失敗。也可能指計畫因故延遲，感到挫敗。"
+            },
+            "權杖王后": {
+                "type": "宮廷牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動與熱情。王后是成熟的女性，展現包容。此牌代表一位充滿活力、自信、獨立且善於激勵他人的女性。",
+                "imageUrl": "https://i.urusai.cc/LlOKb.jpeg",
+                "upright": "熱情、自信、獨立、有魅力。一位充滿活力與自信的女性，獨立自主，善於社交，能激勵他人。",
+                "reversed": "逆位代表能量的過度，熱情變成嫉妒與憤怒，可能變得專制、不耐煩，控制慾強。"
+            },
+            "權杖國王": {
+                "type": "宮廷牌 (權杖)", "description": "權杖牌組對應火元素🔥，代表行動與熱情。國王是成熟的領導者。此牌代表一位天生的領袖，有遠見且充滿創造力，能帶領團隊走向成功。",
+                "imageUrl": "https://i.urusai.cc/XkqoJ.jpeg",
+                "upright": "領導力、遠見、創造力、有魅力。一位天生的領袖，有遠見且充滿創造力，能帶領團隊走向成功。",
+                "reversed": "逆位代表能量的濫用或過度，領導力變成獨裁與專制，缺乏彈性，不願聽取他人意見的暴君。"
+            },
+            "聖杯一": {
+                "type": "數字牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感與人際關係。數字一象徵全新的開始。這張牌是情感的源頭，一段新戀情或新關係的開端，充滿愛與喜悅。",
+                "imageUrl": "https://i.urusai.cc/BP986.jpeg",
+                "upright": "新戀情、喜悅、感受、直覺。情感的新開始，充滿愛與喜悅。代表一段新關係或創造力的湧現。",
+                "reversed": "從牌面演繹，逆位時杯中之水流出，象徵情感的流失。代表情感壓抑、失落、空虛，或一段關係的結束。"
+            },
+            "聖杯二": {
+                "type": "數字牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。數字二象徵結合與選擇。這張牌描繪一段和諧平等的情感交流或合作關係，是心靈的契合。",
+                "imageUrl": "https://i.urusai.cc/J7Yqv.jpeg",
+                "upright": "戀情、友情、合作、結合。代表一段和諧平等的關係，無論是愛情、友情或合作，雙方都能互相尊重。",
+                "reversed": "逆位代表相反的意義，關係出現問題，可能因誤解或不平等而導致分手、失和。"
+            },
+            "聖杯三": {
+                "type": "數字牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。數字三象徵初步成果。這張牌描繪團體的歡樂與慶祝，是情感交流的初步成功。",
+                "imageUrl": "https://i.urusai.cc/441CD.jpeg",
+                "upright": "慶祝、結盟、團體、宴會、成功。代表團體的歡樂與慶祝，可能是婚禮、派對或合作的成功。",
+                "reversed": "逆位代表能量的過度，歡慶變成過度放縱，樂極生悲。也可能指團體內部出現矛盾與不和。"
+            },
+            "聖杯四": {
+                "type": "數字牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。數字四象徵穩定與秩序。這張牌描繪在情感上進入一段穩定但可能停滯的時期，對外界感到冷漠。",
+                "imageUrl": "https://i.urusai.cc/uUlZh.jpeg",
+                "upright": "不滿、拒絕、冷漠、退縮、外遇。對現狀感到不滿與無聊，拒絕新的機會。沉浸在自己的世界中。",
+                "reversed": "逆位代表時間點的差異，即將結束等待，開始接受新機會。重拾對生活的熱情與活力。"
+            },
+            "聖杯五": {
+                "type": "數字牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。數字五象徵衝突與失落。這張牌描繪情感上的失落與悲傷，專注於失去的而忽略擁有的。",
+                "imageUrl": "https://i.urusai.cc/bC2fO.jpeg",
+                "upright": "悲傷、憂鬱、失落、失望。專注於失去的部分，而忽略了仍然擁有的。代表一段悲傷的時期。",
+                "reversed": "逆位代表走出悲傷，接受現實。也可能指被壓抑的情緒，表面看似平靜，內心依然沉浸在失落中。"
+            },
+            "聖杯六": {
+                "type": "數字牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。數字六象徵分享與和諧。這張牌描繪美好的回憶與單純的快樂，代表情感上的饋贈與分享。",
+                "imageUrl": "https://i.urusai.cc/t2LbD.jpeg",
+                "upright": "童年、回憶、思鄉、照顧、饋贈。沉浸在美好的回憶中，可能與過去的人事物重逢。代表單純的快樂與饋贈。",
+                "reversed": "逆位代表時間點的差異，可能指過度沉溺於過去而無法前進，或終於放下過去，展望未來。"
+            },
+            "聖杯七": {
+                "type": "數字牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。數字七象徵內省與奮鬥。這張牌描繪沉浸在幻想與夢境中，面臨多種選擇而感到困惑。",
+                "imageUrl": "https://i.urusai.cc/msjER.jpeg",
+                "upright": "誘惑、幻想、想像、夢境、選擇。面臨太多選擇而感到困惑，沉浸在不切實際的幻想中。需要釐清目標。",
+                "reversed": "逆位代表從幻想中清醒，目標變得明確，並開始採取實際行動，腳踏實地。"
+            },
+            "聖杯八": {
+                "type": "數字牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。數字八象徵快速行動。這張牌描繪在情感上感到不滿足，選擇離開去追尋更高層次的目標。",
+                "imageUrl": "https://i.urusai.cc/xh6MN.jpeg",
+                "upright": "拋棄、不滿足、行動、犧牲。意識到現狀無法滿足自己，選擇離開去追尋更高層次的目標。代表主動的轉變。",
+                "reversed": "逆位代表被壓抑的狀態，雖然不滿足，但因害怕改變而不敢離開，導致停滯不前的困境。"
+            },
+            "聖杯九": {
+                "type": "數字牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。數字九象徵成果與獨處。這張牌描繪願望達成，在情感與物質上都感到心滿意足。",
+                "imageUrl": "https://i.urusai.cc/iQyxf.jpeg",
+                "upright": "享樂、得意、美夢成真。願望達成，感到心滿意足。代表物質與精神上的富足與享受。",
+                "reversed": "逆位代表能量的過度或不足。過度則流於炫耀；不足則雖擁有很多，內心仍感不滿足與空虛。"
+            },
+            "聖杯十": {
+                "type": "數字牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。數字十象徵完成與轉化。這張牌描繪家庭的幸福與情感的圓滿，是關係的最高峰。",
+                "imageUrl": "https://i.urusai.cc/uXV7T.jpeg",
+                "upright": "情感圓滿、家庭、滿足、和諧。代表家庭的幸福與情感的圓滿，人際關係和諧，內心充滿喜悅。",
+                "reversed": "逆位代表能量的減弱或相反，家庭失和，情感出現裂痕，無法感受到幸福與滿足。"
+            },
+            "聖杯侍者": {
+                "type": "宮廷牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。侍者是學習者，情感上較不成熟。此牌代表一位富有想像力、直覺敏銳、但可能較情緒化的年輕人。",
+                "imageUrl": "https://i.urusai.cc/JFe5O.jpeg",
+                "upright": "直覺、感性、新消息、學習。一位富有想像力與直覺的年輕人，可能帶來關於情感的新消息或學習機會。",
+                "reversed": "逆位代表能量的不足或過度，情感不成熟，過於情緒化，或沉溺於幻想中逃避現實。"
+            },
+            "聖杯騎士": {
+                "type": "宮廷牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。騎士是行動者，在情感上積極主動。此牌代表一位浪漫的追求者，善於社交，但也可能情感氾濫。",
+                "imageUrl": "https://i.urusai.cc/9O7fF.jpeg",
+                "upright": "浪漫、溫柔、有魅力、邀請。一位浪漫的追求者，可能帶來愛情的邀請。代表溫柔與感性的行動。",
+                "reversed": "逆位代表能量的誤用，可能是一位善於偽裝的情場騙子。也可能指過於理想化而做出不切實際的承諾。"
+            },
+            "聖杯王后": {
+                "type": "宮廷牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。王后是成熟的女性，充滿包容力。此牌代表一位溫柔、富有同情心與直覺力、善於傾聽的女性。",
+                "imageUrl": "https://i.urusai.cc/KbNTo.jpeg",
+                "upright": "溫柔、慈悲、直覺、有同理心。一位充滿母性光輝的女性，富有同情心與直覺力，善於傾聽與照顧他人。",
+                "reversed": "逆位代表能量的過度，情感過於氾濫而變得情緒化，可能過度依賴他人，或沉浸在悲傷中無法自拔。"
+            },
+            "聖杯國王": {
+                "type": "宮廷牌 (聖杯)", "description": "聖杯牌組對應水元素💧，代表情感。國王是成熟的領導者，能控制情感。此牌代表一位成熟穩重、富有智慧與同情心的男性。",
+                "imageUrl": "https://i.urusai.cc/qM6g9.jpeg",
+                "upright": "慈悲、寬容、成熟、有智慧。一位成熟穩重的男性，能控制自己的情感，並以智慧與同情心待人。",
+                "reversed": "逆位代表能量的濫用或壓抑。可能壓抑自己的情感而變得冷漠，或利用情感來操控他人（情緒勒索）。"
+            },
+            "寶劍一": {
+                "type": "數字牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考與挑戰。數字一象徵全新的開始。這張牌是一個新的想法、挑戰或觀念的出現，需要清晰的理智與決心。",
+                "imageUrl": "https://i.urusai.cc/MnMh2.jpeg",
+                "upright": "新挑戰、極端、理智、決心。代表一個新的想法或挑戰，需要用清晰的理智與決心來面對。也可能代表極端的力量。",
+                "reversed": "逆位代表能量的誤用或不足。想法無法執行，或因濫用理智而導致衝突與失敗，決策混亂。"
+            },
+            "寶劍二": {
+                "type": "數字牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考。數字二象徵對立與選擇。這張牌描繪在思考上陷入兩難，刻意逃避現實而導致的僵局。",
+                "imageUrl": "https://i.urusai.cc/YaZ4y.jpeg",
+                "upright": "進退兩難、抗拒、對立、僵局、緊張。在兩個選擇間猶豫不決，逃避現實，導致僵局。",
+                "reversed": "逆位代表終於願意面對現實，做出決定。雖然過程可能痛苦，但能打破僵局，結束對立。"
+            },
+            "寶劍三": {
+                "type": "數字牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考與傷害。數字三象徵初步成果。這張牌描繪由言語或思想帶來的悲傷、心碎與失落。",
+                "imageUrl": "https://i.urusai.cc/jdDqb.jpeg",
+                "upright": "悲傷、失落、延遲、心碎。代表令人心痛的悲傷與失落，可能是分離、背叛或失望。",
+                "reversed": "逆位代表能量的減弱，悲傷的程度可能減輕。也可能代表時間點的差異，傷痛的時期即將結束，開始恢復。"
+            },
+            "寶劍四": {
+                "type": "數字牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考。數字四象徵穩定與秩序。這張牌描繪在經歷衝突後，需要一段時間的休息與沉思來恢復力量。",
+                "imageUrl": "https://i.urusai.cc/dqzqG.jpeg",
+                "upright": "休息、消極、沉思、準備、隱遁。在經歷混亂後，需要一段時間的休息與沉澱，為未來的行動做準備。",
+                "reversed": "逆位代表時間點的差異，休息的階段即將結束，準備好重新出發，恢復活力。"
+            },
+            "寶劍五": {
+                "type": "數字牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考與衝突。數字五象徵衝突與失落。這張牌描繪一場不擇手段的勝利，雖贏了場面卻輸了人和。",
+                "imageUrl": "https://i.urusai.cc/fEyOm.jpeg",
+                "upright": "無謂的勝利、自私、失敗、屈辱。雖然贏得勝利，但卻失去更多，是一種空洞的勝利。代表衝突與不和。",
+                "reversed": "逆位代表衝突後的狀態，可能意識到鬥爭的無謂，願意尋求和解；也可能代表更深的失敗與屈辱。"
+            },
+            "寶劍六": {
+                "type": "數字牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考。數字六象徵分享與和諧。這張牌描繪從痛苦的狀態過渡到一個較為平靜的時期，象徵療傷的旅程。",
+                "imageUrl": "https://i.urusai.cc/cakNp.jpeg",
+                "upright": "過渡、療傷、痊癒、旅行。離開充滿痛苦的過去，前往一個更平靜的未來。代表一個療傷與過渡的時期。",
+                "reversed": "逆位代表能量的延遲或受阻，雖然想離開，但被過去的傷痛所困，無法真正前進，導致停滯。"
+            },
+            "寶劍七": {
+                "type": "數字牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考。數字七象徵內省與奮鬥。這張牌描繪試圖用小聰明或不誠實的手段來達成目的，需要謹慎行事。",
+                "imageUrl": "https://i.urusai.cc/boWZf.jpeg",
+                "upright": "欺詐、孤立、嘗試、自負。可能代表不誠實的行為，或試圖用小聰明解決問題。需要謹慎行事。",
+                "reversed": "逆位代表放棄欺騙的手段，願意誠實面對問題。也可能代表收到有用的建議或指導。"
+            },
+            "寶劍八": {
+                "type": "數字牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考。數字八象徵快速行動。這張牌描繪因思緒混亂而感到被困，但這種困境多為自我設限。",
+                "imageUrl": "https://i.urusai.cc/mQxzN.jpeg",
+                "upright": "劃地自限、壞消息、壓迫、迷感。感覺被困住，但這種困境大多是自己造成的。需要打破自我限制。",
+                "reversed": "逆位代表相反的意義，意識到困境是自己造成的，開始採取行動，打破限制，重獲自由與解脫。"
+            },
+            "寶劍九": {
+                "type": "數字牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考。數字九象徵成果與獨處。這張牌描繪因思緒過度而導致的焦慮、擔憂與失眠。",
+                "imageUrl": "https://i.urusai.cc/198GY.jpeg",
+                "upright": "焦慮、擔憂、恐懼、失眠。因過度擔憂而感到痛苦與絕望，常常在夜裡感到不安。",
+                "reversed": "逆位代表能量的減弱或結束。意識到擔憂是多餘的，最壞的情況並未發生，開始看到希望，走出焦慮。"
+            },
+            "寶劍十": {
+                "type": "數字牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考與痛苦。數字十象徵完成與轉化。這張牌描繪一個痛苦的結束，但也意味著黎明即將到來。",
+                "imageUrl": "https://i.urusai.cc/TM7nJ.jpeg",
+                "upright": "結束、痛苦、黎明前的黑暗。代表一個痛苦的結束，雖然艱難，但也意味著新的開始即將到來。",
+                "reversed": "逆位代表能量的減弱，痛苦的程度減輕，但問題尚未完全解決。也可能指情況有所改善，看到復甦的跡象。"
+            },
+            "寶劍侍者": {
+                "type": "宮廷牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考與溝通。侍者是學習者，思想上較不成熟。此牌代表一位聰明、好奇、但可能不夠圓滑的年輕人。",
+                "imageUrl": "https://i.urusai.cc/tFi1n.jpeg",
+                "upright": "警覺、好奇、新消息、學習。一位聰明、好奇的年輕人，可能帶來新的消息或挑戰。需要保持警惕。",
+                "reversed": "逆位代表能量的濫用，可能收到不好的消息，或有人在背後窺探、說閒話。需要小心防範。"
+            },
+            "寶劍騎士": {
+                "type": "宮廷牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考與溝通。騎士是行動者，在思想上很衝。此牌代表一個行動迅速、思想敏銳但可能缺乏耐心的年輕人。",
+                "imageUrl": "https://i.urusai.cc/0zwp3.jpeg",
+                "upright": "迅速、果斷、有決心、直接。行動迅速且果斷，為達目的不惜一切。代表一個充滿衝勁的時期。",
+                "reversed": "逆位代表能量的過度，行動過於倉促魯莽而導致失敗，或因缺乏同理心而傷害他人，具破壞性。"
+            },
+            "寶劍王后": {
+                "type": "宮廷牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考與溝通。王后是成熟的女性，思想敏銳。此牌代表一位理智、獨立且溝通能力強的女性。",
+                "imageUrl": "https://i.urusai.cc/fwjWB.jpeg",
+                "upright": "理智、獨立、誠實、敏銳。一位非常聰明且獨立的女性，能以清晰的理智分析問題，做出公正的判斷。",
+                "reversed": "逆位代表能量的過度，理智變成冷酷與尖酸刻薄。可能因過去的傷痛而變得悲觀，對人充滿敵意。"
+            },
+            "寶劍國王": {
+                "type": "宮廷牌 (寶劍)", "description": "寶劍牌組對應風元素💨，代表思考與溝通。國王是成熟的領導者，思想具權威性。此牌代表一位理智、公正且專業的權威人士。",
+                "imageUrl": "https://i.urusai.cc/rWTFf.jpeg",
+                "upright": "權威、理智、公正、專業。一位充滿權威與智慧的男性，是法律、軍事或學術領域的專家。",
+                "reversed": "逆位代表能量的濫用，權威變成專制，理智變成冷酷。可能濫用自己的權力與知識，變得不擇手段。"
+            },
+            "錢幣一": {
+                "type": "數字牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表物質與務實。數字一象徵全新的開始。這張牌是一個關於財務、工作或物質層面的新機會，是實現計畫的基石。",
+                "imageUrl": "https://i.urusai.cc/yPTi0.jpeg",
+                "upright": "新機會、財富、穩定、實現。一個關於物質或財務的新開始，是將計畫付諸實現的好時機。",
+                "reversed": "逆位代表能量的延遲或錯失，可能因計畫不周或猶豫而錯失良機，導致財務上的損失。"
+            },
+            "錢幣二": {
+                "type": "數字牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表物質。數字二象徵平衡與變動。這張牌描繪在變動的財務或工作狀況中尋求平衡，考驗應變能力。",
+                "imageUrl": "https://i.urusai.cc/3rS9e.jpeg",
+                "upright": "彈性、平衡、變動、娛樂。在變動中尋找平衡，需要有彈性地應對各種狀況。也代表財務上的流動。",
+                "reversed": "逆位代表能量的失衡，無法應對變動而導致混亂，可能面臨財務上的困難。"
+            },
+            "錢幣三": {
+                "type": "數字牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表物質與工作。數字三象徵初步成果。這張牌描繪透過團隊合作與專業技能獲得初步的成功與認可。",
+                "imageUrl": "https://i.urusai.cc/pwnsC.jpeg",
+                "upright": "合作、技能、計畫、初步成果。透過團隊合作與專業技能，計畫得到初步的成功與認可。",
+                "reversed": "逆位代表合作不順、技能不足。團隊合作出現問題，或因不夠專業而無法完成工作。"
+            },
+            "錢幣四": {
+                "type": "數字牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表物質。數字四象徵穩定與秩序。這張牌描繪對物質財富的鞏固與掌控，但也可能因過於保守而停滯。",
+                "imageUrl": "https://i.urusai.cc/3lLGp.jpeg",
+                "upright": "穩定、控制、佔有、節儉。過於注重物質與安全感，緊抓著自己擁有的不放。代表財務上的穩定。",
+                "reversed": "逆位代表能量的過度，節儉變成吝嗇與貪婪。也可能指失去控制，財務狀況變得不穩定。"
+            },
+            "錢幣五": {
+                "type": "數字牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表物質。數字五象徵衝突與失落。這張牌描繪在物質或心靈上感到匱乏與困頓，但援助就在身邊。",
+                "imageUrl": "https://i.urusai.cc/KLMdF.jpeg",
+                "upright": "貧窮、困境、被遺棄。在物質或心靈上感到匱乏，陷入困境，感到孤立無援。",
+                "reversed": "逆位代表時間點的差異，困境即將結束，開始看到希望，得到援助，走出低谷。"
+            },
+            "錢幣六": {
+                "type": "數字牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表物質。數字六象徵分享與和諧。這張牌描繪物質層面的施與受，代表慷慨、慈善或債務關係。",
+                "imageUrl": "https://i.urusai.cc/zJf26.jpeg",
+                "upright": "慷慨、分享、慈善、平衡。代表施與受的平衡，可能是給予或接受幫助。財務狀況良好。",
+                "reversed": "逆位代表能量的失衡，慷慨變成吝嗇，或在施與受的關係中感到不平衡，可能面臨債務問題。"
+            },
+            "錢幣七": {
+                "type": "數字牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表物質與工作。數字七象徵內省與奮鬥。這張牌描繪在辛勤耕耘後，耐心等待收穫並評估成果。",
+                "imageUrl": "https://i.urusai.cc/yuTan.jpeg",
+                "upright": "耐心、評估、等待、耕耘。在辛勤工作後，耐心等待收穫。需要評估目前的進展，決定下一步計畫。",
+                "reversed": "逆位代表能量的不足，因缺乏耐心而做出錯誤的決定，導致努力白費或投資失敗。"
+            },
+            "錢幣八": {
+                "type": "數字牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表物質與工作。數字八象徵快速行動。這張牌描繪專注於提升技能，透過勤奮工作獲得成功。",
+                "imageUrl": "https://i.urusai.cc/rEiV6.jpeg",
+                "upright": "技能、勤奮、專注、學習。專注於提升自己的技能，透過勤奮工作獲得成功。代表一段學習與成長的時期。",
+                "reversed": "逆位代表能量的誤用，對工作失去熱情，只是重複性的勞動，或試圖走捷徑而導致失敗。"
+            },
+            "錢幣九": {
+                "type": "數字牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表物質。數字九象徵成果與獨處。這張牌描繪透過自身努力獲得物質上的豐收與獨立，享受成果。",
+                "imageUrl": "https://i.urusai.cc/Q67US.jpeg",
+                "upright": "富足、獨立、自信、享受。透過自己的努力獲得豐碩的成果，享受獨立自主的富足生活。",
+                "reversed": "逆位代表能量的不足，雖然物質富足，但內心感到空虛與不滿足。也可能指財務上依賴他人。"
+            },
+            "錢幣十": {
+                "type": "數字牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表物質。數字十象徵完成與轉化。這張牌描繪物質與家庭的雙重富足與穩定，也可能代表傳承。",
+                "imageUrl": "https://i.urusai.cc/WWGb3.jpeg",
+                "upright": "財富、傳承、家庭、穩定。代表物質與家庭的雙重富足，可能是繼承遺產或事業的成功。",
+                "reversed": "逆位代表穩定被打破，可能因財產問題而導致家庭糾紛，或面臨財務上的損失。"
+            },
+            "錢幣侍者": {
+                "type": "宮廷牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表務實。侍者是學習者，態度腳踏實地。此牌代表一個關於學習或工作的務實機會，需要努力。",
+                "imageUrl": "https://i.urusai.cc/3PAFD.jpeg",
+                "upright": "學習、新機會、腳踏實地。一個關於學習或工作的新機會，需要以務實的態度來面對。",
+                "reversed": "逆位代表能量的延遲或不足，可能收到關於財務或工作的壞消息，或計畫因故延遲，學習態度不佳。"
+            },
+            "錢幣騎士": {
+                "type": "宮廷牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表務實。騎士是行動者，行動穩健。此牌代表一個勤奮、可靠且堅持不懈的年輕人，象徵穩定的進展。",
+                "imageUrl": "https://i.urusai.cc/CLKad.jpeg",
+                "upright": "勤奮、可靠、堅持、務實。一位勤奮且可靠的年輕人，能堅持不懈地完成任務。代表穩定的進展。",
+                "reversed": "逆位代表能量的不足或過度。不足則懶惰、停滯；過度則固執、不知變通，缺乏動力。"
+            },
+            "錢幣王后": {
+                "type": "宮廷牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表務實。王后是成熟的女性，善於照顧。此牌代表一位務實、慷慨且善於理財持家的女性，提供穩定的支持。",
+                "imageUrl": "https://i.urusai.cc/JEssn.jpeg",
+                "upright": "務實、慷慨、照顧、穩定。一位務實且充滿母性的女性，善於理財與照顧家庭，提供穩定的支持。",
+                "reversed": "逆位代表能量的過度，過於注重物質而變得嫉妒與小氣。也可能指因缺乏安全感而產生佔有慾。"
+            },
+            "錢幣國王": {
+                "type": "宮廷牌 (錢幣)", "description": "錢幣牌組對應土元素🌍，代表務實。國王是成熟的領導者，事業有成。此牌代表一位成功、可靠且慷慨的企業家或領導者。",
+                "imageUrl": "https://i.urusai.cc/WLUt7.jpeg",
+                "upright": "富裕、成功、可靠、慷慨。一位成功的企業家或領導者，在物質上非常富裕，且願意分享自己的成果。",
+                "reversed": "逆位代表能量的濫用，為追求財富而不擇手段，變得貪婪、腐敗，是一位不可靠的領導者。"
+            }
+        };
+
+        const allCards = Object.keys(cardDetails);
+        let lastReading = null;
+
+        // --- Element Selectors ---
+        const cardGridContainer = document.getElementById('card-grid-container');
+        const modal = document.getElementById('card-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const modalCardImage = document.getElementById('modal-card-image');
+        const modalCardName = document.getElementById('modal-card-name');
+        const modalCardType = document.getElementById('modal-card-type');
+        const modalCardDescription = document.getElementById('modal-card-description');
+        const modalUprightMeaning = document.getElementById('modal-upright-meaning');
+        const modalReversedMeaning = document.getElementById('modal-reversed-meaning');
+        
+        const tabs = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const drawButtons = document.querySelectorAll('.draw-cards-btn');
+
+        const emailSection = document.getElementById('email-section');
+        const emailInput = document.getElementById('email-input');
+        const sendEmailBtn = document.getElementById('send-email-btn');
+        const emailStatus = document.getElementById('email-status');
+        const restartSection = document.getElementById('restart-section');
+
+        // --- Functions ---
+
+        const generateCardGrid = () => {
+            let html = '';
+            const allSuits = {
+                "大阿爾克那 (Major Arcana)": allCards.slice(0, 22),
+                "權杖 (Wands)": allCards.slice(22, 36),
+                "聖杯 (Cups)": allCards.slice(36, 50),
+                "寶劍 (Swords)": allCards.slice(50, 64),
+                "錢幣 (Pentacles)": allCards.slice(64, 78)
+            };
+
+            for (const suit in allSuits) {
+                html += `<div><h3 class="text-2xl font-semibold text-indigo-200 mt-12 mb-6 text-center tracking-widest">${suit}</h3><div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-11 gap-4 md:gap-6">`;
+                allSuits[suit].forEach(cardName => {
+                    const card = cardDetails[cardName];
+                    html += `<div class="tarot-card group text-center space-y-2 cursor-pointer" data-card-name="${cardName}"><img src="${card.imageUrl}" alt="${cardName}" class="rounded-lg shadow-lg w-full border-2 border-gray-700 group-hover:border-yellow-400 transition-colors object-cover aspect-[10/18]"><span class="text-sm md:text-base group-hover:text-yellow-300 transition-colors">${cardName}</span></div>`;
+                });
+                html += `</div></div>`;
+            }
+            cardGridContainer.innerHTML = html;
+        };
+        
+        const showModal = (cardName) => {
+            const card = cardDetails[cardName];
+            if (card) {
+                modalCardImage.src = card.imageUrl;
+                modalCardImage.alt = cardName;
+                modalCardName.textContent = cardName;
+                modalCardType.textContent = card.type;
+                modalCardDescription.innerHTML = `
+                    ${card.description}
+                    <br><br>
+                    <strong class="text-indigo-400">牌義補充：</strong>
+                    逆位的解讀並非簡單地將正位意義反轉，而是提供了更豐富的解讀可能性，可能代表能量的<strong class="text-yellow-300">壓抑、過度、不足、延遲或誤用</strong>等。解牌時需憑藉經驗與直覺，並結合牌陣與問題情境來判斷。
+                `;
+                modalUprightMeaning.textContent = card.upright;
+                modalReversedMeaning.textContent = card.reversed;
+                modal.classList.remove('hidden');
+            }
+        };
+
+        const hideModal = () => modal.classList.add('hidden');
+
+        const drawCards = (count) => {
+            const shuffled = [...allCards].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count).map(name => ({ name, isReversed: Math.random() < 0.5 }));
+        };
+        
+        const renderDrawnCards = (cards, containerId, labels) => {
+            const container = document.getElementById(containerId);
+            container.innerHTML = cards.map((card, index) => {
+                const detail = cardDetails[card.name];
+                return `<div class="text-center"><p class="mb-3 font-semibold text-lg text-indigo-200">${labels[index]}</p><div class="w-40 h-auto cursor-pointer tarot-card" data-card-name="${card.name}"><img src="${detail.imageUrl}" alt="${card.name}" class="rounded-xl shadow-lg w-full ${card.isReversed ? 'transform rotate-180' : ''}"></div><p class="mt-2 text-base">${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</p></div>`;
+            }).join('');
+        };
+
+        const renderAnalysis = (cards, containerId) => {
+            const container = document.getElementById(containerId);
+            let analysisHtml = `<h4 class="text-2xl font-semibold text-center mb-6 text-yellow-300">占卜分析</h4>`;
+            analysisHtml += `<div class="bg-black bg-opacity-20 p-6 rounded-lg ring-1 ring-gray-800 space-y-6">`;
+            
+            cards.forEach(card => {
+                const detail = cardDetails[card.name];
+                const position = card.isReversed ? '逆位' : '正位';
+                const meaning = card.isReversed ? detail.reversed : detail.upright;
+                analysisHtml += `
+                    <div>
+                        <h5 class="text-xl font-semibold text-indigo-300">${card.name} (${position})</h5>
+                        <p class="mt-2 text-gray-400"><strong class="text-gray-300">【核心概念】</strong>${detail.description}</p>
+                        <p class="mt-1 text-gray-400"><strong class="text-gray-300">【${position}牌義】</strong>${meaning}</p>
+                    </div>
+                `;
+            });
+
+            analysisHtml += `
+                <div>
+                    <h5 class="text-xl font-semibold text-indigo-300 mt-6 pt-4 border-t border-gray-700">綜合解讀提示</h5>
+                    <p class="mt-2 text-gray-400">解牌的核心是將抽出的牌卡串連成一個與提問相關的故事。請試著將以上牌義整合成一個連貫的敘述，思考它們如何共同回答您心中的問題。注意牌與牌之間的關聯，它們可能代表事件的因果、時間的演進或不同面向的展現。<br><br>
+                    <strong class="text-indigo-400">逆位牌補充說明：</strong>逆位的解讀並非簡單反轉，而是正位意義的變化，可能代表能量的<strong class="text-yellow-300">壓抑、過度、不足、延遲或誤用</strong>等，需結合情境判斷。</p>
+                </div>
+            `;
+
+            analysisHtml += `</div>`;
+            container.innerHTML = analysisHtml;
+            emailSection.classList.remove('hidden');
+            // Reset email form for new reading
+            emailInput.value = '';
+            emailStatus.textContent = '';
+            restartSection.classList.add('hidden');
+            sendEmailBtn.style.display = 'inline-block';
+            emailInput.style.display = 'inline-block';
+        };
+
+        // --- Event Listeners ---
+        cardGridContainer.addEventListener('click', e => e.target.closest('.tarot-card') && showModal(e.target.closest('.tarot-card').dataset.cardName));
+        document.getElementById('divination').addEventListener('click', e => e.target.closest('.tarot-card') && showModal(e.target.closest('.tarot-card').dataset.cardName));
+        closeModalBtn.addEventListener('click', hideModal);
+        modal.addEventListener('click', e => e.target === modal && hideModal());
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                tabContents.forEach(content => content.classList.add('hidden'));
+                document.getElementById(tab.dataset.spread + '-spread').classList.remove('hidden');
+            });
+        });
+        
+        drawButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const count = parseInt(button.dataset.count);
+                const cards = drawCards(count);
+                lastReading = { spread: count === 2 ? '因果牌陣' : '時間之流牌陣', cards };
+                if (count === 2) {
+                    renderDrawnCards(cards, 'cause-effect-results', ['原因', '結果']);
+                    renderAnalysis(cards, 'cause-effect-analysis');
+                } else {
+                    renderDrawnCards(cards, 'time-stream-results', ['過去', '現在', '未來']);
+                    renderAnalysis(cards, 'time-stream-analysis');
+                }
+            });
+        });
+        
+        sendEmailBtn.addEventListener('click', () => {
+            const email = emailInput.value.trim();
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                emailStatus.textContent = "請輸入有效的電子信箱。";
+                emailStatus.className = "text-center mt-4 h-6 text-red-400";
+                return;
+            }
+            if (!lastReading) {
+                emailStatus.textContent = "請先進行一次占卜。";
+                emailStatus.className = "text-center mt-4 h-6 text-red-400";
+                return;
+            }
+            
+            sendEmailBtn.disabled = true;
+            sendEmailBtn.textContent = "寄送中...";
+            emailStatus.textContent = "正在為您準備並寄送報告...";
+            emailStatus.className = "text-center mt-4 h-6 text-yellow-400";
+
+            // --- Corrected Email Sending Logic ---
+            // Build the granular HTML parts that match the user's template.
+            
+            const spread_name = lastReading.spread;
+
+            let drawn_cards_html = '';
+            lastReading.cards.forEach(card => {
+                const detail = cardDetails[card.name];
+                const rotationStyle = card.isReversed ? 'style="transform: rotate(180deg);"' : '';
+                const positionLabel = card.isReversed ? '(逆位)' : '(正位)';
+                // Using inline styles for better email client compatibility
+                drawn_cards_html += `
+                    <div style="text-align: center; display: inline-block; vertical-align: top; margin: 10px; width: 120px; font-family: sans-serif;">
+                        <img src="${detail.imageUrl}" alt="${card.name}" width="120" style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" ${rotationStyle}}>
+                        <p style="margin-top: 8px; font-size: 13px; color: #333333;">${card.name} ${positionLabel}</p>
+                    </div>
+                `;
+            });
+
+            let analysis_detail_html = '';
+            lastReading.cards.forEach(card => {
+                const detail = cardDetails[card.name];
+                const position = card.isReversed ? '逆位' : '正位';
+                const meaning = card.isReversed ? detail.reversed : detail.upright;
+                analysis_detail_html += `
+                    <div style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #eeeeee;">
+                        <h3 style="font-size: 18px; font-weight: 600; color: #4F46E5; margin:0 0 8px 0;">${card.name} (${position})</h3>
+                        <p style="margin: 0 0 4px 0; line-height: 1.6;"><strong style="color: #374151;">【核心概念】</strong>${detail.description}</p>
+                        <p style="margin: 0; line-height: 1.6;"><strong style="color: #374151;">【${position}牌義】</strong>${meaning}</p>
+                    </div>
+                `;
+            });
+            
+            // This is the object that will be sent. Its keys MUST match the template variables.
+            const templateParams = {
+                to_email: email,
+                spread_name: spread_name,
+                drawn_cards_html: drawn_cards_html,
+                analysis_detail_html: analysis_detail_html,
+            };
+            
+            const serviceID = 'service_tu3puek';
+            const templateID = 'template_pexhwes';
+            const publicKey = 'nYyZS-Q-jokmGLMfM';
+
+            emailjs.init({ publicKey: publicKey });
+
+            emailjs.send(serviceID, templateID, templateParams)
+                .then(response => {
+                   emailStatus.textContent = '分析報告已成功寄出！';
+                   emailStatus.className = "text-center mt-4 h-6 text-green-400";
+                   restartSection.classList.remove('hidden');
+                   sendEmailBtn.style.display = 'none';
+                   emailInput.style.display = 'none';
+                }, error => {
+                   emailStatus.textContent = '寄送失敗，請檢查 EmailJS 模板變數設定。';
+                   emailStatus.className = "text-center mt-4 h-6 text-red-400";
+                   console.log('FAILED...', error);
+                })
+                .finally(() => {
+                    sendEmailBtn.disabled = false;
+                    sendEmailBtn.textContent = "寄送報告";
+                });
+        });
+
+        // --- Initial Load ---
+        generateCardGrid();
+    });
+    </script>
+</body>
+</html>
+
