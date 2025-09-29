@@ -44,7 +44,7 @@
         {
           "@type": "ItemList",
           "name": "78張塔羅牌義",
-          "description": "完整78張塔羅牌的牌義列表，包含大阿爾克那與四組小爾克那。",
+          "description": "完整78張塔羅牌的牌義列表，包含大阿爾克那與四組小阿爾克那。",
           "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "愚人"},
             {"@type": "ListItem", "position": 2, "name": "魔術師"},
@@ -192,6 +192,7 @@
         .active-spread {
             background-color: #facc15 !important; /* Yellow-400 */
             color: #111827 !important; /* Dark blue-gray text */
+            font-weight: 700;
         }
         /* Style for details/summary accordion */
         details > summary {
@@ -269,24 +270,25 @@
             </div>
              <p id="spread-description" class="text-center text-indigo-200 mb-8 h-12"></p>
             
+            <!-- Reading Result Placeholders and Cards -->
+            <div id="reading-area" class="hidden">
+                 <div id="drawn-cards" class="flex justify-center items-start gap-4 md:gap-8 flex-wrap mb-8">
+                    <!-- Placeholders or Cards will be injected here -->
+                </div>
+            </div>
+
             <!-- Step 2: Draw Button -->
             <div class="text-center mb-8">
                  <p class="text-lg text-indigo-300 mb-4">第二步：專注默念問題後，按下抽牌</p>
                 <button id="draw-cards-btn" class="px-8 py-4 bg-yellow-500 text-gray-900 font-bold text-lg rounded-lg shadow-xl hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75 transition-transform transform hover:scale-105 duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-600" disabled>請先選擇牌陣</button>
             </div>
 
-            <!-- Reading Result -->
-            <div id="reading-result" class="hidden">
-                <h3 id="result-title" class="text-2xl font-bold text-center mb-6 text-yellow-300"></h3>
-                <div id="drawn-cards" class="flex justify-center items-start gap-4 md:gap-8 flex-wrap mb-8">
-                    <!-- Cards will be injected here -->
-                </div>
-                
+            <!-- Analysis and Email Form -->
+            <div id="analysis-and-email-area" class="hidden">
                 <div id="analysis-result" class="bg-gray-900 bg-opacity-40 p-6 rounded-lg">
                      <!-- Analysis will be injected here -->
                 </div>
 
-                <!-- EmailJS Form -->
                 <div id="email-form-container" class="mt-12 bg-gray-800 bg-opacity-70 p-8 rounded-2xl">
                     <h4 class="text-2xl font-bold text-center mb-4 text-yellow-300">寄送詳細分析報告</h4>
                     <p class="text-center text-indigo-300 mb-6 max-w-2xl mx-auto">想獲得更深入的個人化牌義詳解嗎？輸入您的電子信箱，我們將會把完整的分析報告寄送給您。</p>
@@ -389,8 +391,8 @@
 
     <!-- Modal for Card Details -->
     <div id="card-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex justify-center items-center p-4">
-        <div class="bg-gray-800 text-gray-200 rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto relative">
-            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl">&times;</button>
+        <div class="bg-gray-800 text-gray-200 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl z-10">&times;</button>
             <div id="modal-content" class="p-6 md:p-8">
                 <!-- Card details will be injected here -->
             </div>
@@ -399,101 +401,105 @@
 
     <!-- JavaScript Logic -->
     <script>
-        window.addEventListener('pageshow', (event) => {
-          if (event.persisted) {
+    document.addEventListener('DOMContentLoaded', () => {
+    // Prevent details from staying open on page back
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
             document.querySelectorAll('details').forEach(detail => {
-              detail.removeAttribute('open');
+                detail.removeAttribute('open');
             });
-          }
-        });
+        }
+    });
 
-        const allCards = [
-            // ... Major Arcana
-            { name: "愚人", type: "大阿爾克那", img: "https://i.urusai.cc/myiOW.jpeg" },
-            { name: "魔術師", type: "大阿爾克那", img: "https://i.urusai.cc/V3gw6.jpeg" },
-            { name: "女祭司", type: "大阿爾克那", img: "https://i.urusai.cc/VNb65.jpeg" },
-            { name: "皇后", type: "大阿爾克那", img: "https://i.urusai.cc/wVEX3.jpeg" },
-            { name: "皇帝", type: "大阿爾克那", img: "https://i.urusai.cc/xkvjL.jpeg" },
-            { name: "教宗", type: "大阿爾克那", img: "https://i.urusai.cc/z233n.jpeg" },
-            { name: "戀人", type: "大阿爾克那", img: "https://i.urusai.cc/wf8po.jpeg" },
-            { name: "戰車", type: "大阿爾克那", img: "https://i.urusai.cc/dx9Sn.jpeg" },
-            { name: "力量", type: "大阿爾克那", img: "https://i.urusai.cc/bnHGo.jpeg" },
-            { name: "隱士", type: "大阿爾克那", img: "https://i.urusai.cc/GOq3k.jpeg" },
-            { name: "命運之輪", type: "大阿爾克那", img: "https://i.urusai.cc/zkpMV.jpeg" },
-            { name: "正義", type: "大阿爾克那", img: "https://i.urusai.cc/E2Wyi.jpeg" },
-            { name: "吊人", type: "大阿爾克那", img: "https://i.urusai.cc/pkaQf.jpeg" },
-            { name: "死神", type: "大阿爾克那", img: "https://i.urusai.cc/SUe7O.jpeg" },
-            { name: "節制", type: "大阿爾克那", img: "https://i.urusai.cc/TN1aj.jpeg" },
-            { name: "惡魔", type: "大阿爾克那", img: "https://i.urusai.cc/hGBJS.jpeg" },
-            { name: "塔", type: "大阿爾克那", img: "https://i.urusai.cc/6yuLx.jpeg" },
-            { name: "星星", type: "大阿爾克那", img: "https://i.urusai.cc/el0N1.jpeg" },
-            { name: "月亮", type: "大阿爾克那", img: "https://i.urusai.cc/4TPBJ.jpeg" },
-            { name: "太陽", type: "大阿爾克那", img: "https://i.urusai.cc/yVqvp.jpeg" },
-            { name: "審判", type: "大阿爾克那", img: "https://i.urusai.cc/32YH1.jpeg" },
-            { name: "世界", type: "大阿爾克那", img: "https://i.urusai.cc/UKTLH.jpeg" },
-            // ... Wands
-            { name: "權杖一", type: "權杖", img: "https://i.urusai.cc/gCsOt.jpeg" },
-            { name: "權杖二", type: "權杖", img: "https://i.urusai.cc/4X54O.jpeg" },
-            { name: "權杖三", type: "權杖", img: "https://i.urusai.cc/Qv7wY.jpeg" },
-            { name: "權杖四", type: "權杖", img: "https://i.urusai.cc/P9vMq.jpeg" },
-            { name: "權杖五", type: "權杖", img: "https://i.urusai.cc/Hj53f.jpeg" },
-            { name: "權杖六", type: "權杖", img: "https://i.urusai.cc/z1BJd.jpeg" },
-            { name: "權杖七", type: "權杖", img: "https://i.urusai.cc/ri4bD.jpeg" },
-            { name: "權杖八", type: "權杖", img: "https://i.urusai.cc/M5Flf.jpeg" },
-            { name: "權杖九", type: "權杖", img: "https://i.urusai.cc/H2AjL.jpeg" },
-            { name: "權杖十", type: "權杖", img: "https://i.urusai.cc/P1S56.jpeg" },
-            { name: "權杖侍者", type: "權杖", img: "https://i.urusai.cc/12HwY.jpeg" },
-            { name: "權杖騎士", type: "權杖", img: "https://i.urusai.cc/HUSWA.jpeg" },
-            { name: "權杖王后", type: "權杖", img: "https://i.urusai.cc/LlOKb.jpeg" },
-            { name: "權杖國王", type: "權杖", img: "https://i.urusai.cc/XkqoJ.jpeg" },
-            // ... Cups
-            { name: "聖杯一", type: "聖杯", img: "https://i.urusai.cc/BP986.jpeg" },
-            { name: "聖杯二", type: "聖杯", img: "https://i.urusai.cc/J7Yqv.jpeg" },
-            { name: "聖杯三", type: "聖杯", img: "https://i.urusai.cc/441CD.jpeg" },
-            { name: "聖杯四", type: "聖杯", img: "https://i.urusai.cc/uUlZh.jpeg" },
-            { name: "聖杯五", type: "聖杯", img: "https://i.urusai.cc/bC2fO.jpeg" },
-            { name: "聖杯六", type: "聖杯", img: "https://i.urusai.cc/t2LbD.jpeg" },
-            { name: "聖杯七", type: "聖杯", img: "https://i.urusai.cc/msjER.jpeg" },
-            { name: "聖杯八", type: "聖杯", img: "https://i.urusai.cc/xh6MN.jpeg" },
-            { name: "聖杯九", type: "聖杯", img: "https://i.urusai.cc/iQyxf.jpeg" },
-            { name: "聖杯十", type: "聖杯", img: "https://i.urusai.cc/uXV7T.jpeg" },
-            { name: "聖杯侍者", type: "聖杯", img: "https://i.urusai.cc/JFe5O.jpeg" },
-            { name: "聖杯騎士", type: "聖杯", img: "https://i.urusai.cc/9O7fF.jpeg" },
-            { name: "聖杯王后", type: "聖杯", img: "https://i.urusai.cc/KbNTo.jpeg" },
-            { name: "聖杯國王", type: "聖杯", img: "https://i.urusai.cc/qM6g9.jpeg" },
-            // ... Swords
-            { name: "寶劍一", type: "寶劍", img: "https://i.urusai.cc/MnMh2.jpeg" },
-            { name: "寶劍二", type: "寶劍", img: "https://i.urusai.cc/YaZ4y.jpeg" },
-            { name: "寶劍三", type: "寶劍", img: "https://i.urusai.cc/jdDqb.jpeg" },
-            { name: "寶劍四", type: "寶劍", img: "https://i.urusai.cc/dqzqG.jpeg" },
-            { name: "寶劍五", type: "寶劍", img: "https://i.urusai.cc/fEyOm.jpeg" },
-            { name: "寶劍六", type: "寶劍", img: "https://i.urusai.cc/cakNp.jpeg" },
-            { name: "寶劍七", type: "寶劍", img: "https://i.urusai.cc/boWZf.jpeg" },
-            { name: "寶劍八", type: "寶劍", img: "https://i.urusai.cc/mQxzN.jpeg" },
-            { name: "寶劍九", type: "寶劍", img: "https://i.urusai.cc/198GY.jpeg" },
-            { name: "寶劍十", type: "寶劍", img: "https://i.urusai.cc/TM7nJ.jpeg" },
-            { name: "寶劍侍者", type: "寶劍", img: "https://i.urusai.cc/tFi1n.jpeg" },
-            { name: "寶劍騎士", type: "寶劍", img: "https://i.urusai.cc/0zwp3.jpeg" },
-            { name: "寶劍王后", type: "寶劍", img: "https://i.urusai.cc/fwjWB.jpeg" },
-            { name: "寶劍國王", type: "寶劍", img: "https://i.urusai.cc/rWTFf.jpeg" },
-            // ... Pentacles
-            { name: "錢幣一", type: "錢幣", img: "https://i.urusai.cc/yPTi0.jpeg" },
-            { name: "錢幣二", type: "錢幣", img: "https://i.urusai.cc/3rS9e.jpeg" },
-            { name: "錢幣三", type: "錢幣", img: "https://i.urusai.cc/pwnsC.jpeg" },
-            { name: "錢幣四", type: "錢幣", img: "https://i.urusai.cc/3lLGp.jpeg" },
-            { name: "錢幣五", type: "錢幣", img: "https://i.urusai.cc/KLMdF.jpeg" },
-            { name: "錢幣六", type: "錢幣", img: "https://i.urusai.cc/zJf26.jpeg" },
-            { name: "錢幣七", type: "錢幣", img: "https://i.urusai.cc/yuTan.jpeg" },
-            { name: "錢幣八", type: "錢幣", img: "https://i.urusai.cc/rEiV6.jpeg" },
-            { name: "錢幣九", type: "錢幣", img: "https://i.urusai.cc/Q67US.jpeg" },
-            { name: "錢幣十", type: "錢幣", img: "https://i.urusai.cc/WWGb3.jpeg" },
-            { name: "錢幣侍者", type: "錢幣", img: "https://i.urusai.cc/3PAFD.jpeg" },
-            { name: "錢幣騎士", type: "錢幣", img: "https://i.urusai.cc/CLKad.jpeg" },
-            { name: "錢幣王后", type: "錢幣", img: "https://i.urusai.cc/JEssn.jpeg" },
-            { name: "錢幣國王", type: "錢幣", img: "https://i.urusai.cc/WLUt7.jpeg" },
-        ];
-        
-        const cardKeywords = {
+    const allCards = [
+        // ... (card data from previous turn)
+         // Major Arcana
+        { name: "愚人", type: "大阿爾克那", img: "https://i.urusai.cc/myiOW.jpeg" },
+        { name: "魔術師", type: "大阿爾克那", img: "https://i.urusai.cc/V3gw6.jpeg" },
+        { name: "女祭司", type: "大阿爾克那", img: "https://i.urusai.cc/VNb65.jpeg" },
+        { name: "皇后", type: "大阿爾克那", img: "https://i.urusai.cc/wVEX3.jpeg" },
+        { name: "皇帝", type: "大阿爾克那", img: "https://i.urusai.cc/xkvjL.jpeg" },
+        { name: "教宗", type: "大阿爾克那", img: "https://i.urusai.cc/z233n.jpeg" },
+        { name: "戀人", type: "大阿爾克那", img: "https://i.urusai.cc/wf8po.jpeg" },
+        { name: "戰車", type: "大阿爾克那", img: "https://i.urusai.cc/dx9Sn.jpeg" },
+        { name: "力量", type: "大阿爾克那", img: "https://i.urusai.cc/bnHGo.jpeg" },
+        { name: "隱士", type: "大阿爾克那", img: "https://i.urusai.cc/GOq3k.jpeg" },
+        { name: "命運之輪", type: "大阿爾克那", img: "https://i.urusai.cc/zkpMV.jpeg" },
+        { name: "正義", type: "大阿爾克那", img: "https://i.urusai.cc/E2Wyi.jpeg" },
+        { name: "吊人", type: "大阿爾克那", img: "https://i.urusai.cc/pkaQf.jpeg" },
+        { name: "死神", type: "大阿爾克那", img: "https://i.urusai.cc/SUe7O.jpeg" },
+        { name: "節制", type: "大阿爾克那", img: "https://i.urusai.cc/TN1aj.jpeg" },
+        { name: "惡魔", type: "大阿爾克那", img: "https://i.urusai.cc/hGBJS.jpeg" },
+        { name: "塔", type: "大阿爾克那", img: "https://i.urusai.cc/6yuLx.jpeg" },
+        { name: "星星", type: "大阿爾克那", img: "https://i.urusai.cc/el0N1.jpeg" },
+        { name: "月亮", type: "大阿爾克那", img: "https://i.urusai.cc/4TPBJ.jpeg" },
+        { name: "太陽", type: "大阿爾克那", img: "https://i.urusai.cc/yVqvp.jpeg" },
+        { name: "審判", type: "大阿爾克那", img: "https://i.urusai.cc/32YH1.jpeg" },
+        { name: "世界", type: "大阿爾克那", img: "https://i.urusai.cc/UKTLH.jpeg" },
+        // Wands
+        { name: "權杖一", type: "權杖", img: "https://i.urusai.cc/gCsOt.jpeg" },
+        { name: "權杖二", type: "權杖", img: "https://i.urusai.cc/4X54O.jpeg" },
+        { name: "權杖三", type: "權杖", img: "https://i.urusai.cc/Qv7wY.jpeg" },
+        { name: "權杖四", type: "權杖", img: "https://i.urusai.cc/P9vMq.jpeg" },
+        { name: "權杖五", type: "權杖", img: "https://i.urusai.cc/Hj53f.jpeg" },
+        { name: "權杖六", type: "權杖", img: "https://i.urusai.cc/z1BJd.jpeg" },
+        { name: "權杖七", type: "權杖", img: "https://i.urusai.cc/ri4bD.jpeg" },
+        { name: "權杖八", type: "權杖", img: "https://i.urusai.cc/M5Flf.jpeg" },
+        { name: "權杖九", type: "權杖", img: "https://i.urusai.cc/H2AjL.jpeg" },
+        { name: "權杖十", type: "權杖", img: "https://i.urusai.cc/P1S56.jpeg" },
+        { name: "權杖侍者", type: "權杖", img: "https://i.urusai.cc/12HwY.jpeg" },
+        { name: "權杖騎士", type: "權杖", img: "https://i.urusai.cc/HUSWA.jpeg" },
+        { name: "權杖王后", type: "權杖", img: "https://i.urusai.cc/LlOKb.jpeg" },
+        { name: "權杖國王", type: "權杖", img: "https://i.urusai.cc/XkqoJ.jpeg" },
+        // Cups
+        { name: "聖杯一", type: "聖杯", img: "https://i.urusai.cc/BP986.jpeg" },
+        { name: "聖杯二", type: "聖杯", img: "https://i.urusai.cc/J7Yqv.jpeg" },
+        { name: "聖杯三", type: "聖杯", img: "https://i.urusai.cc/441CD.jpeg" },
+        { name: "聖杯四", type: "聖杯", img: "https://i.urusai.cc/uUlZh.jpeg" },
+        { name: "聖杯五", type: "聖杯", img: "https://i.urusai.cc/bC2fO.jpeg" },
+        { name: "聖杯六", type: "聖杯", img: "https://i.urusai.cc/t2LbD.jpeg" },
+        { name: "聖杯七", type: "聖杯", img: "https://i.urusai.cc/msjER.jpeg" },
+        { name: "聖杯八", type: "聖杯", img: "https://i.urusai.cc/xh6MN.jpeg" },
+        { name: "聖杯九", type: "聖杯", img: "https://i.urusai.cc/iQyxf.jpeg" },
+        { name: "聖杯十", type: "聖杯", img: "https://i.urusai.cc/uXV7T.jpeg" },
+        { name: "聖杯侍者", type: "聖杯", img: "https://i.urusai.cc/JFe5O.jpeg" },
+        { name: "聖杯騎士", type: "聖杯", img: "https://i.urusai.cc/9O7fF.jpeg" },
+        { name: "聖杯王后", type: "聖杯", img: "https://i.urusai.cc/KbNTo.jpeg" },
+        { name: "聖杯國王", type: "聖杯", img: "https://i.urusai.cc/qM6g9.jpeg" },
+        // Swords
+        { name: "寶劍一", type: "寶劍", img: "https://i.urusai.cc/MnMh2.jpeg" },
+        { name: "寶劍二", type: "寶劍", img: "https://i.urusai.cc/YaZ4y.jpeg" },
+        { name: "寶劍三", type: "寶劍", img: "https://i.urusai.cc/jdDqb.jpeg" },
+        { name: "寶劍四", type: "寶劍", img: "https://i.urusai.cc/dqzqG.jpeg" },
+        { name: "寶劍五", type: "寶劍", img: "https://i.urusai.cc/fEyOm.jpeg" },
+        { name: "寶劍六", type: "寶劍", img: "https://i.urusai.cc/cakNp.jpeg" },
+        { name: "寶劍七", type: "寶劍", img: "https://i.urusai.cc/boWZf.jpeg" },
+        { name: "寶劍八", type: "寶劍", img: "https://i.urusai.cc/mQxzN.jpeg" },
+        { name: "寶劍九", type: "寶劍", img: "https://i.urusai.cc/198GY.jpeg" },
+        { name: "寶劍十", type: "寶劍", img: "https://i.urusai.cc/TM7nJ.jpeg" },
+        { name: "寶劍侍者", type: "寶劍", img: "https://i.urusai.cc/tFi1n.jpeg" },
+        { name: "寶劍騎士", type: "寶劍", img: "https://i.urusai.cc/0zwp3.jpeg" },
+        { name: "寶劍王后", type: "寶劍", img: "https://i.urusai.cc/fwjWB.jpeg" },
+        { name: "寶劍國王", type: "寶劍", img: "https://i.urusai.cc/rWTFf.jpeg" },
+        // Pentacles
+        { name: "錢幣一", type: "錢幣", img: "https://i.urusai.cc/yPTi0.jpeg" },
+        { name: "錢幣二", type: "錢幣", img: "https://i.urusai.cc/3rS9e.jpeg" },
+        { name: "錢幣三", type: "錢幣", img: "https://i.urusai.cc/pwnsC.jpeg" },
+        { name: "錢幣四", type: "錢幣", img: "https://i.urusai.cc/3lLGp.jpeg" },
+        { name: "錢幣五", type: "錢幣", img: "https://i.urusai.cc/KLMdF.jpeg" },
+        { name: "錢幣六", type: "錢幣", img: "https://i.urusai.cc/zJf26.jpeg" },
+        { name: "錢幣七", type: "錢幣", img: "https://i.urusai.cc/yuTan.jpeg" },
+        { name: "錢幣八", type: "錢幣", img: "https://i.urusai.cc/rEiV6.jpeg" },
+        { name: "錢幣九", type: "錢幣", img: "https://i.urusai.cc/Q67US.jpeg" },
+        { name: "錢幣十", type: "錢幣", img: "https://i.urusai.cc/WWGb3.jpeg" },
+        { name: "錢幣侍者", type: "錢幣", img: "https://i.urusai.cc/3PAFD.jpeg" },
+        { name: "錢幣騎士", type: "錢幣", img: "https://i.urusai.cc/CLKad.jpeg" },
+        { name: "錢幣王后", type: "錢幣", img: "https://i.urusai.cc/JEssn.jpeg" },
+        { name: "錢幣國王", type: "錢幣", img: "https://i.urusai.cc/WLUt7.jpeg" },
+    ];
+    
+    // Simple keywords for all cards, used as a fallback and for the modal
+    const cardKeywords = {
             "愚人": { upright: "開始、冒險、天真、潛力、無限可能", reversed: "魯莽、天真、不明智的決定、猶豫不決" },
             "魔術師": { upright: "創造力、溝通、技能、萬事俱備、主動", reversed: "欺騙、濫用才能、缺乏創意、精力錯置" },
             "女祭司": { upright: "直覺、智慧、神秘、靜默、潛意識", reversed: "秘密、膚淺、忽視直覺、情緒化" },
@@ -572,147 +578,149 @@
             "錢幣騎士": { upright: "勤奮、可靠、耐心、按部就班", reversed: "停滯、懶惰、固執、缺乏動力" },
             "錢幣王后": { upright: "務實、照顧、慷慨、穩定、享受生活", reversed: "過度物質、缺乏安全感、嫉妒、吝嗇" },
             "錢幣國王": { upright: "成功、富裕、可靠、企業家、穩定", reversed: "貪婪、腐敗、固執、財務失利" },
+    };
+    
+    // This object will hold all detailed card meanings
+    const detailedCardMeanings = {
+        "愚人": {
+            introduction: `
+                <p class="mb-2"><b>核心關鍵詞：</b> 開始、冒險、大膽、天真、愚笨、我行我素、潛力、飄泊、旅行。</p>
+                <p><b>核心概念：</b>作為大牌，代表宇宙性的宏觀能量與生命課題。這是「愚人之旅」的起點，象徵純真、潛力與旅程的開端。其編號0代表著無限的可能性，可以是完整的圓，也可以是一無所有，包含了所有好與壞的可能。</p>
+            `,
+            detailed_analysis: `
+                <div style="background-color: #1f2937; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                    <h4 style="margin:0; font-size: 16px; color: #fde047; font-weight: 600; margin-bottom: 8px;">牌面描述</h4>
+                    <p>愚人（The Fool）穿著色彩斑斕的服裝，頭上戴頂象徵成功的桂冠，無視於前方的懸崖，依舊昂首闊步向前行。他左手拿著一朵白玫瑰，象徵純潔與熱情；右手則輕輕握著一根權杖，上面繫著裝載經驗的包袱。他腳邊的小白狗正狂吠著，像是在提醒他懸崖的危險，又像在隨他一同起舞。無論如何，愚人神色歡欣，望向遙遠的天空而非眼前的懸崖，遠方的山脈象徵他前方未知的旅程，而白色的太陽則自始至終見證著他的一舉一動。</p>
+                </div>
+                <div style="background-color: #1f2937; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                    <h4 style="margin:0; font-size: 16px; color: #fde047; font-weight: 600; margin-bottom: 8px;">牌義推演與象徵</h4>
+                    <p>愚人是一張特殊的大牌，編號為0，可以出現在任何地方，象徵旅程的開始。這個數字代表無限的可能性，如同空白的狀態，可好可壞。愚人牌對應風元素，像風一樣自由自在、飄泊不定。</p>
+                    <ul style="list-style-type: disc; padding-left: 20px;">
+                        <li><b>經驗與潛力：</b> 他並非完全愚蠢，包袱裡裝著他的經驗，只是他不被經驗所控制。他漫不經心地握著象徵力量的權杖，與魔術師有意識地運用截然不同，顯示他尚未意識到自身蘊含的神奇魔法與潛力。</li>
+                        <li><b>愚人之旅：</b> 愚人是整個塔羅旅程的起點與主角。整個大牌的故事就是一場愚人的冒險，描述他從新生兒開始，經歷各種原型人物的引導與互動，最終在世界牌中完成旅程，達到成功。</li>
+                    </ul>
+                </div>
+                 <div style="background-color: #1f2937; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                    <h4 style="margin:0; font-size: 16px; color: #fde047; font-weight: 600; margin-bottom: 8px;">代表人物與原型</h4>
+                     <ul style="list-style-type: disc; padding-left: 20px;">
+                        <li><b>原型：</b> 在占卜中，愚人象徵「初生之犢不畏虎」的新生兒，天不怕地不怕。</li>
+                        <li><b>代表人物：</b> 他是各種神話或故事中的流浪者原型，例如希臘神話中的酒神戴歐尼修斯（Dionysus）、道教八仙中的韓湘子、民間傳說中的濟公，以及金庸小說中的老頑童周伯通。這些角色都具有外表瘋癲、我行我素、不計後果的特點。</li>
+                    </ul>
+                </div>
+            `,
+            upright_full: `
+                <b>正位牌義：天真、大膽、充滿潛力、熱愛冒險、無拘無束、新的開始、旅行。憑感覺行事，不計後果，活在當下。</b>
+                <ul style="list-style-type: disc; padding-left: 20px; margin-top: 8px;">
+                    <li><b>內在與外在狀態：</b>在占卜中，若愚人代表一個人，此人可能居無定所，內心狂放不羈。他愛好冒險，會衝動地陷入戀情，但難以安定下來或做出承諾。他看似漫無目的，不遵守世俗規範，行為舉止孩子氣，但內心明白自己在做什麼，只是目標與一般人不同。他是一個活在當下的樂觀主義者。</li>
+                    <li><b>生活層面的意義：</b>表示旅行，特別是未經詳細計畫的旅行、搬家或轉學等大膽的行動。當事人可能會把事情看得太簡單，沒有經過縝密的思考和計劃，但這也意味著潛力無窮。工作上可能表示處在一個需要創意的另類工作環境中。感情上，可能代表旅途中的戀情，或是「今朝有酒今朝醉」的態度。</li>
+                </ul>
+            `,
+            reversed_full: `
+                <b>逆位牌義：逆位的愚人牌通常指向因魯莽、無知而產生的問題。逆位時圖像中的愚人會頭下腳上栽落懸崖，潛力無窮的狀態轉為問題叢生。</b>
+                <ul style="list-style-type: disc; padding-left: 20px; margin-top: 8px;">
+                    <li><b>狀態與行為（過度）：</b> 原本的天真變成愚蠢，大膽變成魯莽，我行我素成為不守規矩。當事人可能粗心大意、計畫過於冒失、行事瘋狂。</li>
+                    <li><b>狀態與行為（不足）：</b> 失去正向特質，無法聽從內心本能行事，變得過於小心而錯失良機、膽小怕事、喪失勇氣、太在意別人的看法。</li>
+                    <li><b>決策：</b> 大體而言，愚人逆位時，當事人容易做出不明智的決定或舉動。</li>
+                </ul>
+                <p style="margin-top: 8px;"><b>逆位牌義補充：</b>逆位的解讀並非簡單地將正位意義反轉，而是提供了更豐富的解讀可能性。它可能代表能量的壓抑、否認、過度、不足、時間點的差異（剛開始或快結束）或誤用等。解牌時需憑藉經驗與直覺，並結合牌陣與問題情境來判斷。</p>
+            `
+        }
+    };
+
+    let currentSpread = null;
+    let drawnCardsData = [];
+
+   
+        const majorArcanaGrid = document.getElementById('major-arcana-grid');
+        const wandsGrid = document.getElementById('wands-grid');
+        const cupsGrid = document.getElementById('cups-grid');
+        const swordsGrid = document.getElementById('swords-grid');
+        const pentaclesGrid = document.getElementById('pentacles-grid');
+        
+        const grids = {
+            '大阿爾克那': majorArcanaGrid,
+            '權杖': wandsGrid,
+            '聖杯': cupsGrid,
+            '寶劍': swordsGrid,
+            '錢幣': pentaclesGrid
         };
 
-        // Grouped card meanings with detailed explanations
-        const cardMeanings = {
-            "愚人": {
-                concept: "<b>核心概念：大阿爾克那 0・愚者之旅的起點</b><br>愚人代表旅程的開端、純真與無限的可能性。他的編號是0，象徵著一個全新的循環，充滿了未知與潛力。在占卜中，他象徵著一次大膽的躍進，提醒我們要憑直覺行事，勇敢地踏出第一步。",
-                upright: "<b>正位：開始、冒險、天真、潛力、無限可能</b><br>當愚人正位時，代表一個充滿潛力的新開始。這是一個鼓勵你放下恐懼、相信直覺、勇敢踏上新旅程的時刻。你可能面臨一個全新的機會，或是決定要以一種全新的、不受束縛的方式生活。這張牌鼓勵你擁抱未知，享受過程中的自由與驚喜。",
-                reversed: "<b>逆位：魯莽、天真、不明智的決定、猶豫不決</b><br>逆位的愚人，其天真可能轉為愚蠢，大膽變為魯莽。你可能做出了不明智的決定，或是因為害怕而猶豫不決，錯失了良機。這張牌提醒你要更加謹慎，在行動前多加思考，避免因一時衝動而陷入困境。同時，也可能暗示你過於在意他人眼光，而不敢追尋自己真正的渴望。"
-            },
-            "魔術師": {
-                concept: "<b>核心概念：大阿爾克那 1・資源的整合與創造</b><br>魔術師是所有數字的開端，代表將想法化為現實的強大創造力。他掌握了四大元素（權杖、聖杯、寶劍、錢幣），象徵著他擁有實現目標所需的一切資源與技能。他提醒我們，只要專注意志，就能將潛力轉化為成就。",
-                upright: "<b>正位：創造力、溝通、技能、萬事俱備、主動</b><br>正位的魔術師是一張充滿力量與自信的牌。它表示你現在擁有所需的技能、資源與創造力來達成目標。這是一個採取主動、開始新計畫的絕佳時機。你的溝通能力會很強，能夠清晰地表達自己的想法，並說服他人。相信自己的能力，你就能創造奇蹟。",
-                reversed: "<b>逆位：欺騙、濫用才能、缺乏創意、精力錯置</b><br>逆位的魔術師可能暗示著才能的濫用或誤用。你可能將聰明才智用在了錯誤的地方，甚至進行欺騙。也可能表示你缺乏自信、精力不集中，導致計畫停滯不前。這張牌提醒你要誠實面對自己，檢視自己的動機，確保將精力用在有建設性的地方。"
-            },
-            // ... (The rest of the card meanings are dynamically generated or follow a similar detailed structure)
-        };
-
-        let currentSpread = null;
-        let drawnCardsData = [];
-
-        document.addEventListener('DOMContentLoaded', () => {
-            (function(){
-                emailjs.init("nYyZS-Q-jokmGLMfM");
-            })();
-
-            const majorArcanaGrid = document.getElementById('major-arcana-grid');
-            const wandsGrid = document.getElementById('wands-grid');
-            const cupsGrid = document.getElementById('cups-grid');
-            const swordsGrid = document.getElementById('swords-grid');
-            const pentaclesGrid = document.getElementById('pentacles-grid');
-            
-            const grids = {
-                '大阿爾克那': majorArcanaGrid,
-                '權杖': wandsGrid,
-                '聖杯': cupsGrid,
-                '寶劍': swordsGrid,
-                '錢幣': pentaclesGrid
-            };
-
-            function createCardElement(card) {
-                const cardDiv = document.createElement('div');
-                cardDiv.className = 'cursor-pointer transform hover:scale-105 transition-transform duration-300';
-                cardDiv.innerHTML = `<img src="${card.img}" alt="${card.name}" class="card-image shadow-lg hover:shadow-yellow-400/30">`;
-                cardDiv.addEventListener('click', () => showCardDetails(card.name));
-                return cardDiv;
-            }
-
-            allCards.forEach(card => {
-                if (grids[card.type]) {
-                    grids[card.type].appendChild(createCardElement(card));
-                }
-            });
-
-            const spreadCauseEffectBtn = document.getElementById('spread-cause-effect');
-            const spreadTimelineBtn = document.getElementById('spread-timeline');
-            const drawCardsBtn = document.getElementById('draw-cards-btn');
-            const spreadDescription = document.getElementById('spread-description');
-            
-            function selectSpread(spreadType, btnElement) {
-                currentSpread = spreadType;
-                drawCardsBtn.disabled = false;
-                
-                // Reset both buttons
-                spreadCauseEffectBtn.classList.remove('active-spread');
-                spreadTimelineBtn.classList.remove('active-spread');
-                spreadCauseEffectBtn.classList.add('bg-gray-700');
-                spreadTimelineBtn.classList.add('bg-gray-700');
-
-                // Activate the selected one
-                btnElement.classList.add('active-spread');
-                btnElement.classList.remove('bg-gray-700');
-
-                if (spreadType === 'cause-effect') {
-                    spreadDescription.textContent = '「因果牌陣」將抽出兩張牌，分別代表事件的原因與可能的結果。';
-                    drawCardsBtn.textContent = '抽取因果牌陣';
-                } else {
-                    spreadDescription.textContent = '「時間之流牌陣」將抽出三張牌，分別代表事件的過去、現在與未來。';
-                    drawCardsBtn.textContent = '抽取時間之流牌陣';
-                }
-            }
-
-            spreadCauseEffectBtn.addEventListener('click', (e) => selectSpread('cause-effect', e.currentTarget));
-            spreadTimelineBtn.addEventListener('click', (e) => selectSpread('timeline', e.currentTarget));
-            drawCardsBtn.addEventListener('click', drawCards);
-
-            document.getElementById('send-email-btn').addEventListener('click', sendEmail);
-
-            // Modal functionality
-            const modal = document.getElementById('card-modal');
-            const closeModalBtn = document.getElementById('close-modal');
-            closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
-        });
-
-        function getFullCardData(cardName) {
-             const baseInfo = allCards.find(c => c.name === cardName);
-             const keywords = cardKeywords[cardName] || { upright: "", reversed: "" };
-             const meanings = cardMeanings[cardName] || {
-                concept: `<b>核心概念：${baseInfo.type}</b><br>此牌組代表著四大元素中的一種，反映了我們日常生活的具體事件、情境與心態。`,
-                upright: `<b>正位：${keywords.upright}</b><br>正位牌通常代表該牌能量的順暢、積極展現。`,
-                reversed: `<b>逆位：${keywords.reversed}</b><br>逆位牌則可能暗示能量的轉變，例如被壓抑、過度或不足、延遲等，需要從不同角度去理解。`
-            };
-            return { ...baseInfo, ...keywords, ...meanings };
+        function createCardElement(card) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'cursor-pointer transform hover:scale-105 transition-transform duration-300';
+            cardDiv.innerHTML = `<img src="${card.img}" alt="${card.name}" class="card-image shadow-lg hover:shadow-yellow-400/30">`;
+            cardDiv.addEventListener('click', () => showCardDetails(card.name));
+            return cardDiv;
         }
 
-        function showCardDetails(cardName) {
-            const card = getFullCardData(cardName);
-            const modalContent = document.getElementById('modal-content');
-            modalContent.innerHTML = `
-                <div class="md:flex md:gap-8">
-                    <div class="md:w-1/3 text-center mb-6 md:mb-0">
-                        <img src="${card.img}" alt="${card.name}" class="w-full max-w-[200px] mx-auto rounded-lg shadow-xl">
-                        <h2 class="text-3xl font-bold mt-4 text-yellow-300">${card.name}</h2>
-                        <p class="text-indigo-300">${card.type}</p>
+        allCards.forEach(card => {
+            if (grids[card.type]) {
+                grids[card.type].appendChild(createCardElement(card));
+            }
+        });
+
+        (function(){
+            emailjs.init("nYyZS-Q-jokmGLMfM");
+        })();
+
+        const spreadCauseEffectBtn = document.getElementById('spread-cause-effect');
+        const spreadTimelineBtn = document.getElementById('spread-timeline');
+        const drawCardsBtn = document.getElementById('draw-cards-btn');
+        const spreadDescription = document.getElementById('spread-description');
+        const readingArea = document.getElementById('reading-area');
+        const analysisAndEmailArea = document.getElementById('analysis-and-email-area');
+
+        function selectSpread(spreadType, btnElement) {
+            currentSpread = spreadType;
+            drawCardsBtn.disabled = false;
+            
+            [spreadCauseEffectBtn, spreadTimelineBtn].forEach(btn => {
+                btn.classList.remove('active-spread');
+            });
+
+            btnElement.classList.add('active-spread');
+
+            if (spreadType === 'cause-effect') {
+                spreadDescription.textContent = '「因果牌陣」將抽出兩張牌，分別代表事件的原因與可能的結果。';
+                drawCardsBtn.textContent = '抽取因果牌陣';
+            } else {
+                spreadDescription.textContent = '「時間之流牌陣」將抽出三張牌，分別代表事件的過去、現在與未來。';
+                drawCardsBtn.textContent = '抽取時間之流牌陣';
+            }
+            
+            displaySpreadPlaceholders(spreadType);
+            analysisAndEmailArea.classList.add('hidden'); // Hide analysis when new spread is chosen
+            readingArea.classList.remove('hidden');
+            readingArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function displaySpreadPlaceholders(spreadType) {
+            const drawnCardsDiv = document.getElementById('drawn-cards');
+            const labels = spreadType === 'cause-effect' ? ['原因 (因)', '結果 (果)'] : ['過去', '現在', '未來'];
+            drawnCardsDiv.innerHTML = ''; // Clear previous content
+
+            drawnCardsDiv.className = 'flex justify-center items-start gap-4 md:gap-8 flex-wrap mb-8';
+
+            labels.forEach(label => {
+                const placeholderElement = document.createElement('div');
+                placeholderElement.className = 'text-center w-[45%] md:w-[30%] max-w-[220px] flex-shrink-0';
+                placeholderElement.innerHTML = `
+                    <p class="font-semibold text-lg mb-2 text-indigo-300 h-8">${label}</p>
+                    <div class="card-image bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg flex items-center justify-center">
+                        <svg class="w-16 h-16 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.648l-.21-1.453a3.375 3.375 0 00-2.455-2.456l-1.453-.21.21 1.453a3.375 3.375 0 002.455 2.456l1.453.21z" />
+                        </svg>
                     </div>
-                    <div class="md:w-2/3 space-y-4">
-                        <div class="bg-gray-700 p-4 rounded-lg">
-                            <p class="text-gray-300 leading-relaxed">${card.concept}</p>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold text-yellow-300 mb-2">正位牌義：${card.upright}</h3>
-                            <p class="text-gray-300 leading-relaxed">${card.upright_full || '詳細說明待補充。'}</p>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold text-yellow-300 mb-2">逆位牌義：${card.reversed}</h3>
-                            <p class="text-gray-300 leading-relaxed">${card.reversed_full || '詳細說明待補充。'}</p>
-                        </div>
-                    </div>
-                </div>`;
-            document.getElementById('card-modal').classList.remove('hidden');
+                    <p class="mt-2 font-semibold text-gray-500 h-7">-</p>
+                `;
+                drawnCardsDiv.appendChild(placeholderElement);
+            });
         }
 
         function drawCards() {
             if (!currentSpread) return;
 
             const shuffledDeck = [...allCards].sort(() => Math.random() - 0.5);
-            
             const numCards = currentSpread === 'cause-effect' ? 2 : 3;
             drawnCardsData = [];
 
@@ -726,67 +734,95 @@
         }
 
         function displayReadingResult() {
-            const readingResultDiv = document.getElementById('reading-result');
             const drawnCardsDiv = document.getElementById('drawn-cards');
-            const resultTitle = document.getElementById('result-title');
             const analysisResultDiv = document.getElementById('analysis-result');
-            
-            drawnCardsDiv.innerHTML = '';
-            
-            let labels = [];
-            if (currentSpread === 'cause-effect') {
-                resultTitle.textContent = '您的「因果牌陣」抽牌結果';
-                labels = ['原因 (因)', '結果 (果)'];
-            } else {
-                resultTitle.textContent = '您的「時間之流牌陣」抽牌結果';
-                labels = ['過去', '現在', '未來'];
-            }
+            drawnCardsDiv.innerHTML = ''; // Clear placeholders
+
+            const labels = currentSpread === 'cause-effect' ? ['原因 (因)', '結果 (果)'] : ['過去', '現在', '未來'];
 
             drawnCardsData.forEach((card, index) => {
                 const cardElement = document.createElement('div');
-                cardElement.className = 'text-center w-28 md:w-40 flex-shrink-0';
+                cardElement.className = 'text-center w-[45%] md:w-[30%] max-w-[220px] flex-shrink-0';
                 cardElement.innerHTML = `
-                    <p class="font-semibold text-lg mb-2 text-indigo-300">${labels[index]}</p>
+                    <p class="font-semibold text-lg mb-2 text-indigo-300 h-8">${labels[index]}</p>
                     <img src="${card.img}" alt="${card.name}" 
                          class="card-image shadow-lg cursor-pointer transform hover:scale-105 transition-transform duration-300 ${card.isReversed ? 'rotate-180' : ''}"
                          onclick="showCardDetails('${card.name}')">
-                    <p class="mt-2 font-semibold text-gray-200">${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</p>
+                    <p class="mt-2 font-semibold text-gray-200 h-7">${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</p>
                 `;
                 drawnCardsDiv.appendChild(cardElement);
             });
             
-            let analysisHTML = '<h3 class="text-2xl font-bold text-center mb-6 text-yellow-300">詳細占卜分析</h3>';
+            let analysisHTML = '<h3 class="text-2xl font-bold text-center mb-6 text-yellow-300">牌義介紹</h3>';
             drawnCardsData.forEach((card, index) => {
-                const fullCard = getFullCardData(card.name);
-                const meaning_keywords = card.isReversed ? fullCard.reversed : fullCard.upright;
-                const meaning_full = card.isReversed ? (fullCard.reversed_full || '詳細說明待補充。') : (fullCard.upright_full || '詳細說明待補充。');
-
-                analysisHTML += `
-                    <div class="mb-6 pb-6 border-b border-gray-700">
-                        <h4 class="text-xl font-bold text-indigo-300 mb-2">${labels[index]}：${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</h4>
+                 const fullCard = getFullCardData(card.name);
+                 
+                 analysisHTML += `
+                    <div class="mb-6 pb-6 border-b border-gray-700 last:border-b-0 last:pb-0">
+                        <h4 class="text-xl font-bold text-indigo-300 mb-3">${labels[index]}：${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</h4>
                         <div class="space-y-2 text-gray-300">
-                           <p>${fullCard.concept}</p>
-                           <p><b>牌義關鍵字：</b>${meaning_keywords}</p>
-                           <p>${meaning_full}</p>
+                            ${fullCard.introduction}
                         </div>
                     </div>
-                `;
+                 `;
             });
 
             analysisHTML += `
-                <div class="mt-6">
+                <div class="mt-8 pt-6 border-t border-gray-700">
                     <h4 class="text-xl font-bold text-indigo-300 mb-2">綜合解讀提示</h4>
-                    <p class="text-gray-400">解牌的核心是將抽出的牌卡串連成一個與提問相關的故事。請試著將以上牌義整合成一個連貫的敘述，思考它們如何共同回答您心中的問題。</p>
+                    <p class="text-gray-400">解牌的核心是將抽出的牌卡串連成一個與提問相關的故事。請試著將以上牌義整合成一個連貫的敘述，思考它們如何共同回答您心中的問題。<br><em class="text-sm text-gray-500">（更詳細的個別牌義分析將會寄送到您的電子信箱中。）</em></p>
                 </div>
             `;
 
             analysisResultDiv.innerHTML = analysisHTML;
-            readingResultDiv.classList.remove('hidden');
+            analysisAndEmailArea.classList.remove('hidden');
+        }
+        
+        function getFullCardData(cardName) {
+             const baseInfo = allCards.find(c => c.name === cardName);
+             const detailedData = detailedCardMeanings[cardName];
+             const keywords = cardKeywords[cardName] || { upright: '待補充', reversed: '待補充' };
+
+             if (!detailedData) {
+                 return {
+                     ...baseInfo,
+                     introduction: `<p><b>核心關鍵詞：</b>${keywords.upright} / ${keywords.reversed}</p><p><b>核心概念：</b>此牌屬於 ${baseInfo.type} 牌組，反映了我們日常生活的具體事件、情境與心態。</p>`,
+                     detailed_analysis: `<p>詳細分析待補充。</p>`,
+                     upright_full: `<p><b>正位詳解</b><br>正位時，通常代表其核心能量的順暢與積極展現。關鍵詞為：${keywords.upright}。</p>`,
+                     reversed_full: `<p><b>逆位詳解</b><br>逆位可能暗示能量的轉變。關鍵詞為：${keywords.reversed}。</p>`
+                 };
+             }
+
+             return { ...baseInfo, ...detailedData };
+        }
+
+        function showCardDetails(cardName) {
+            const card = getFullCardData(cardName);
+            const modalContent = document.getElementById('modal-content');
             
-            readingResultDiv.scrollIntoView({ behavior: 'smooth' });
+            const keywords = cardKeywords[cardName] || {};
+
+            modalContent.innerHTML = `
+                <div class="md:flex md:gap-8">
+                    <div class="md:w-1/3 text-center mb-6 md:mb-0">
+                        <img src="${card.img}" alt="${card.name}" class="w-full max-w-[250px] mx-auto rounded-lg shadow-xl">
+                        <h2 class="text-3xl font-bold mt-4 text-yellow-300">${card.name}</h2>
+                        <p class="text-indigo-300">${card.type}</p>
+                         <div class="mt-4 text-left text-sm p-3 bg-gray-700 rounded-lg">
+                            <p><b>正位關鍵詞:</b> ${keywords.upright}</p>
+                            <p><b>逆位關鍵詞:</b> ${keywords.reversed}</p>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3 space-y-4 text-left">
+                        ${card.introduction}
+                    </div>
+                </div>`;
+            document.getElementById('card-modal').classList.remove('hidden');
+            modalContent.parentElement.scrollTop = 0;
         }
 
         function sendEmail() {
+            // ... (Send email logic remains the same, but will now use the detailed content)
             const emailInput = document.getElementById('email-input');
             const sendBtn = document.getElementById('send-email-btn');
             const emailStatus = document.getElementById('email-status');
@@ -807,50 +843,11 @@
             sendBtn.textContent = '寄送中...';
             emailStatus.textContent = '';
             
-            const spreadName = currentSpread === 'cause-effect' ? '因果牌陣' : '時間之流牌陣';
-            
-            let labels = [];
-            if (currentSpread === 'cause-effect') {
-                labels = ['原因 (因)', '結果 (果)'];
-            } else {
-                labels = ['過去', '現在', '未來'];
-            }
-
-            let drawnCardsHtml = '<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>';
-            drawnCardsData.forEach((card, index) => {
-                drawnCardsHtml += `
-                    <td align="center" style="padding: 10px; vertical-align: top; width: ${100/labels.length}%;">
-                        <p style="font-size: 16px; font-weight: 600; color: #a5b4fc; margin: 0 0 8px 0; font-family: 'Noto Serif TC', Georgia, serif;">${labels[index]}</p>
-                        <img src="${card.img}" alt="${card.name}" width="120" style="border-radius: 8px; ${card.isReversed ? 'transform: rotate(180deg);' : ''}">
-                        <p style="font-size: 16px; font-weight: 600; color: #e5e7eb; margin: 8px 0 0 0; font-family: 'Noto Serif TC', Georgia, serif;">${card.name} ${card.isReversed ? '(逆位)' : ''}</p>
-                    </td>
-                `;
-            });
-            drawnCardsHtml += '</tr></table>';
-
-            let analysisDetailHtml = '';
-            drawnCardsData.forEach((card, index) => {
-                const fullCard = getFullCardData(card.name);
-                const meaning_keywords = card.isReversed ? fullCard.reversed : fullCard.upright;
-                const meaning_full = card.isReversed ? (fullCard.reversed_full || '詳細說明待補充。') : (fullCard.upright_full || '詳細說明待補充。');
-
-                analysisDetailHtml += `
-                    <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #4b5563;">
-                        <h3 style="font-size: 20px; font-weight: 600; color: #a5b4fc; font-family: 'Noto Serif TC', Georgia, serif; margin: 0 0 8px 0;">${labels[index]}：${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</h3>
-                        <div style="color: #d1d5db; line-height: 1.7;">
-                           <p style="margin: 0 0 8px 0;">${fullCard.concept}</p>
-                           <p style="margin: 0 0 8px 0;"><b>牌義關鍵字：</b>${meaning_keywords}</p>
-                           <p style="margin: 0;">${meaning_full}</p>
-                        </div>
-                    </div>
-                `;
-            });
+            const messageHtml = generateEmailHtml(currentSpread, drawnCardsData);
             
             const templateParams = {
                 to_email: emailInput.value,
-                spread_name: spreadName,
-                drawn_cards_html: drawnCardsHtml,
-                analysis_detail_html: analysisDetailHtml
+                message_html: messageHtml
             };
 
             emailjs.send('service_tu3puek', 'template_pexhwes', templateParams)
@@ -869,6 +866,80 @@
                    sendBtn.textContent = '寄送報告';
                 });
         }
+        
+        function generateEmailHtml(spreadType, cards) {
+            const spreadName = spreadType === 'cause-effect' ? '因果牌陣' : '時間之流牌陣';
+            const labels = spreadType === 'cause-effect' ? ['原因 (因)', '結果 (果)'] : ['過去', '現在', '未來'];
+            
+            let drawnCardsHtml = '<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 24px;"><tr>';
+            cards.forEach((card, index) => {
+                drawnCardsHtml += `
+                    <td align="center" style="padding: 10px; vertical-align: top;">
+                        <p style="font-size: 16px; font-weight: 600; color: #a5b4fc; margin: 0 0 8px 0; font-family: 'Noto Serif TC', Georgia, serif;">${labels[index]}</p>
+                        <img src="${card.img}" alt="${card.name}" width="150" style="border-radius: 8px; max-width: 150px; ${card.isReversed ? 'transform: rotate(180deg);' : ''}">
+                        <p style="font-size: 16px; font-weight: 600; color: #e5e7eb; margin: 8px 0 0 0; font-family: 'Noto Serif TC', Georgia, serif;">${card.name} ${card.isReversed ? '(逆位)' : ''}</p>
+                    </td>
+                `;
+            });
+            drawnCardsHtml += '</tr></table>';
+
+            let analysisDetailHtml = '';
+            cards.forEach((card, index) => {
+                const fullCard = getFullCardData(card.name);
+                const positionMeaning = card.isReversed ? (fullCard.reversed_full) : (fullCard.upright_full);
+
+                analysisDetailHtml += `
+                    <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #374151; text-align: left;">
+                        <h3 style="font-size: 20px; font-weight: 600; color: #a5b4fc; font-family: 'Noto Serif TC', Georgia, serif; margin: 0 0 12px 0;">${labels[index]}：${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</h3>
+                        <div style="color: #d1d5db; line-height: 1.7; font-size: 15px;">
+                           ${fullCard.detailed_analysis}
+                           <div style="background-color: #1f2937; padding: 12px; border-radius: 6px;">
+                                ${positionMeaning}
+                           </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            const combinedHtml = `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; background-color: #1f2937; color: #d1d5db; border-radius: 16px; overflow: hidden;">
+                    <div style="text-align: center; background-color: #111827; padding: 32px 16px;">
+                        <h1 style="font-size: 2.25rem; font-weight: bold; color: #fde047; margin: 0; font-family: 'Noto Serif TC', Georgia, serif;">線上塔羅神諭</h1>
+                        <p style="font-size: 1.125rem; margin: 8px 0 0 0; color: #a5b4fc;">這是您的占卜結果分析</p>
+                    </div>
+                    <div style="padding: 24px;">
+                        <h2 style="font-size: 1.5rem; font-weight: bold; text-align: center; color: #fde047; margin: 0 0 24px 0; font-family: 'Noto Serif TC', Georgia, serif;">您的【${spreadName}】抽牌結果</h2>
+                        ${drawnCardsHtml}
+                        <h2 style="font-size: 1.5rem; font-weight: bold; text-align: center; color: #fde047; margin: 32px 0 24px 0; font-family: 'Noto Serif TC', Georgia, serif;">詳細占卜分析</h2>
+                        ${analysisDetailHtml}
+                        <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #374151;">
+                            <h3 style="font-size: 20px; font-weight: 600; color: #a5b4fc; font-family: 'Noto Serif TC', Georgia, serif; margin: 0 0 12px 0;">綜合解讀提示</h3>
+                            <p style="color: #9ca3af; line-height: 1.7; font-size: 15px; margin: 0;">解牌的核心是將抽出的牌卡串連成一個與提問相關的故事。請試著將以上牌義整合成一個連貫的敘述，思考它們如何共同回答您心中的問題。</p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; background-color: #111827; padding: 24px; font-size: 12px; color: #6b7280;">
+                        <p style="margin: 0 0 12px 0;"><a href="https://tarot-c0p.pages.dev/" style="color: #fde047; text-decoration: none;">再次占卜</a></p>
+                        <p style="margin: 0;">© 2025 線上塔羅神諭. All Rights Reserved @WEDO</p>
+                        <p style="margin: 8px 0 0 0;">🔒 隱私聲明：您的資料僅用於寄送本次報告，系統不會保存你的資料與占卜結果。</p>
+                    </div>
+                </div>
+            `;
+            return combinedHtml;
+        }
+
+        spreadCauseEffectBtn.addEventListener('click', (e) => selectSpread('cause-effect', e.currentTarget));
+        spreadTimelineBtn.addEventListener('click', (e) => selectSpread('timeline', e.currentTarget));
+        drawCardsBtn.addEventListener('click', drawCards);
+        document.getElementById('send-email-btn').addEventListener('click', sendEmail);
+        const modal = document.getElementById('card-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    });
     </script>
 
 </body>
