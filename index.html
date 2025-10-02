@@ -8,7 +8,8 @@
     <meta name="description" content="探索線上塔羅神諭，您的免費線上塔羅牌占卜與學習工具。提供78張塔羅牌正逆位詳解、因果與時間之流牌陣分析，以及系統化的塔羅入門教學，幫助您透過塔羅認識自我，洞見未來。">
     <meta name="keywords" content="塔羅, 塔羅牌, 線上塔羅, 免費占卜, 塔羅牌義, 78張塔羅牌, 塔羅教學, 榮格, 集體潛意識, 宮廷牌, 愚人之旅, 大阿爾克那, 小阿爾克那">
     <link rel="canonical" href="https://tarot.wedopr.com/">
-    
+    <link rel="icon" href="https://tarot.wedopr.com/favicon.ico" type="image/x-icon">
+
     <!-- Open Graph / Facebook / LINE -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tarot.wedopr.com/">
@@ -23,18 +24,26 @@
     <meta property="twitter:description" content="提供專業的線上塔羅牌占卜與完整的78張牌義解析，幫助您探索內心、解決困惑。">
     <meta property="twitter:image" content="https://i.urusai.cc/Xv6ar.jpg">
 
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
     
+    <!-- 優化後的 CSS -->
     <style>
-        body{font-family:'Noto Serif TC',serif;background-color:#111827;color:#d1d5db}.active-spread{background-color:#facc15!important;color:#111827!important;font-weight:700}details>summary{list-style:none;cursor:pointer;padding:1.5rem;border-bottom:1px solid #374151;font-size:1.5rem;font-weight:600;color:#fde047;display:flex;justify-content:space-between;align-items:center;transition:background-color .3s ease}details>summary::-webkit-details-marker{display:none}details>summary:hover{background-color:#1f2937}details>summary::after{content:'+';font-size:2rem;color:#a5b4fc;transition:transform .3s ease}details[open]>summary::after{transform:rotate(45deg)}details .card-grid-container{padding:1.5rem;background-color:rgba(17,24,39,.7)}.card-image{aspect-ratio:2/3.5;width:100%;height:auto;object-fit:cover;border-radius:8px}.analysis-card-block{background-color:rgba(31,41,55,.7);border:1px solid #374151;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}.analysis-card-block p{margin-bottom:.75rem}.analysis-concepts{background-color:rgba(17,24,39,.6);border-left:3px solid #facc15;padding:1rem;border-radius:6px;margin:1rem 0;font-size:.9em}.analysis-guidance{margin-top:1rem;padding-top:1rem;border-top:1px dashed #4b5563}.analysis-guidance h5{font-size:1.125rem;font-weight:700;color:#a5b4fc;margin-bottom:.5rem}
-        .section-bg{background-size:cover;background-position:center;position:relative}.section-bg::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-color:rgba(17,24,39,.8);border-radius:1rem;z-index:-1}
+        body { font-family: 'Noto Serif TC', serif; }
+        details summary::-webkit-details-marker { display: none; }
+        details summary .plus-icon { transition: transform 0.3s ease; }
+        details[open] summary .plus-icon { transform: rotate(45deg); }
+        .section-bg { background-size: cover; background-position: center; position: relative; z-index: 0; }
+        .section-bg::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(17, 24, 39, 0.85); border-radius: 1rem; z-index: -1; }
     </style>
     
-    <!-- JSON-LD Structured Data -->
+    <!-- JSON-LD 結構化資料 -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -48,109 +57,59 @@
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "塔羅牌是什麼？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "塔羅牌不僅是一種預測未來的工具，其更深層次的目的是為了解決問題、認識自我。它是一套由78張圖像豐富的卡牌組成的系統，透過圖像來幫助我們認識自我、覺察問題。使用塔羅牌應以解決生活問題、探索內心、尋找人生方向為核心目的。"
-        }
-      },{
-        "@type": "Question",
-        "name": "塔羅牌占卜如何運作？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "塔羅牌的運作並非基於神秘力量，而是主要作為一種連結使用者「潛意識」的工具，其原理可由心理學家榮格的「集體潛意識」與「共時性原理」來解釋。當您專注於一個問題並抽出牌卡時，所選出的牌會與您個人的頻率產生共振，反映出您當下的內心狀態、課題與潛在的可能性。解牌的過程，就是將這些圖像語言轉化為對現實生活的洞見與指引。"
-        }
-      },{
-        "@type": "Question",
-        "name": "塔羅牌占卜準確嗎？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "塔羅牌的準確性源於它反映了您當下的狀態與能量。它並非宿命論，而是揭示在「不做出改變」的情況下，最有可能發生的未來。如果您的心態或行動改變了，結果也會隨之改變。因此，塔羅牌的真正目的不是「算準」，而是引導人們看見可能性，從而創造自己想要的命運。"
-        }
-      },{
-        "@type": "Question",
-        "name": "大阿爾克那（大牌）和小阿爾克那（小牌）有什麼不同？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "大阿爾克那（22張）代表宇宙性的宏觀能量、重大的生命課題或人生轉折點，其影響是深遠且長期的，是個人較難以意志完全掌控的部分。小阿爾克那（56張）則更貼近日常生活，描繪具體的事件、情境與個人心態，是個人可以透過行動去改變的部分。"
-        }
-      },{
-        "@type": "Question",
-        "name": "正位和逆位牌有什麼意義？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "逆位並非單純的正位相反意思，而是正位能量的一種變化。它可能代表能量被壓抑、過度或不足、延遲，或是需要從不同的角度去理解。初學者可以先專注於正位牌義，待熟悉後再深入探索逆位所帶來的豐富解讀層次。"
-        }
-      },{
-        "@type": "Question",
-        "name": "可以替自己占卜嗎？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "可以。替自己占卜能更深入了解自身狀況，並將牌義與實際生活連結。但初學者需注意保持客觀，避免因「當局者迷」而影響解讀。"
-        }
-      },{
-        "@type": "Question",
-        "name": "塔羅牌有「牌精」嗎？需要「養牌」嗎？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "不需要。所謂「牌精」或「養牌」的說法在歐美並不流行。塔羅牌本身僅是工具，並無任何魔力或靈體。其準確性來自使用者的潛意識與共時性原理，而非神秘力量。"
-        }
-      },{
-        "@type": "Question",
-        "name": "牌可以讓別人觸摸嗎？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "可以。牌本身是工具，讓別人觸摸並不會影響準確度。在占卜時，讓問卜者親自抽牌，更能使其潛意識與牌產生直接連結。"
-        }
-      },{
-        "@type": "Question",
-        "name": "同樣的問題可以重複算嗎？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "不建議。在狀況未發生實質改變前，重複占卜通常源於對第一次結果的不滿或不信，此心態會干擾潛意識的連結，導致結果失準。這與《易經》「再三瀆，瀆則不告」的道理相通。"
-        }
-      },{
-        "@type": "Question",
-        "name": "我應該如何提問？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "一個清晰的問題才能得到清晰的答案。建議提出開放式問題（例如「我該如何改善我的工作狀況？」）而非封閉式的是非題。對於初學者，可以將問題統一設定為「未來三個月的[某領域]發展如何？」來進行練習。"
-        }
-      }]
+      "mainEntity": [
+        {"@type":"Question","name":"塔羅牌是什麼？","acceptedAnswer":{"@type":"Answer","text":"塔羅牌不僅是一種預測未來的工具，其更深層次的目的是為了解決問題、認識自我。它是一套由78張圖像豐富的卡牌組成的系統，透過圖像來幫助我們認識自我、覺察問題。使用塔羅牌應以解決生活問題、探索內心、尋找人生方向為核心目的。"}},
+        {"@type":"Question","name":"塔羅牌占卜如何運作？","acceptedAnswer":{"@type":"Answer","text":"塔羅牌的運作並非基於神秘力量，而是主要作為一種連結使用者「潛意識」的工具，其原理可由心理學家榮格的「集體潛意識」與「共時性原理」來解釋。當您專注於一個問題並抽出牌卡時，所選出的牌會與您個人的頻率產生共振，反映出您當下的內心狀態、課題與潛在的可能性。"}},
+        {"@type":"Question","name":"塔羅牌占卜準確嗎？","acceptedAnswer":{"@type":"Answer","text":"塔羅牌的準確性源於它反映了您當下的狀態與能量。它並非宿命論，而是揭示在「不做出改變」的情況下，最有可能發生的未來。如果您的心態或行動改變了，結果也會隨之改變。因此，塔羅牌的真正目的不是「算準」，而是引導人們看見可能性，從而創造自己想要的命運。"}},
+        {"@type":"Question","name":"大阿爾克那（大牌）和小阿爾克那（小牌）有什麼不同？","acceptedAnswer":{"@type":"Answer","text":"大阿爾克那（22張）代表宇宙性的宏觀能量、重大的生命課題或人生轉折點，其影響是深遠且長期的。小阿爾克那（56張）則更貼近日常生活，描繪具體的事件、情境與個人心態，是個人可以透過行動去改變的部分。"}},
+        {"@type":"Question","name":"正位和逆位牌有什麼意義？","acceptedAnswer":{"@type":"Answer","text":"逆位並非單純的正位相反意思，而是正位能量的一種變化。它可能代表能量被壓抑、過度或不足、延遲，或是需要從不同的角度去理解。初學者可以先專注於正位牌義，待熟悉後再深入探索逆位所帶來的豐富解讀層次。"}},
+        {"@type":"Question","name":"同樣的問題可以重複算嗎？","acceptedAnswer":{"@type":"Answer","text":"不建議。在狀況未發生實質改變前，重複占卜通常源於對第一次結果的不滿或不信，此心態會干擾潛意識的連結，導致結果失準。這與《易經》「再三瀆，瀆則不告」的道理相通。"}},
+        {"@type":"Question","name":"我應該如何提問？","acceptedAnswer":{"@type":"Answer","text":"一個清晰的問題才能得到清晰的答案。建議提出開放式問題（例如「我該如何改善我的工作狀況？」）而非封閉式的是非題。對於初學者，可以將問題統一設定為「未來三個月的[某領域]發展如何？」來進行練習。"}}
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://tarot.wedopr.com/#tarot-learning-section" },
+        "headline": "塔羅入門教學",
+        "author": { "@type": "Organization", "name": "線上塔羅神諭" },
+        "publisher": { "@type": "Organization", "name": "線上塔羅神諭", "logo": { "@type": "ImageObject", "url": "https://i.urusai.cc/Xv6ar.jpg" }},
+        "articleSection": "核心理念：塔羅不是通靈，而是心理學",
+        "abstract": "塔羅的運作原理並非超自然現象，而是奠基於著名心理學家卡爾·榮格 (Carl Jung) 的理論。透過「集體潛意識」、「原型」與「共時性原理」，塔羅成為一面映照內在宇宙、與靈魂對話的動態地圖。"
     }
     </script>
 </head>
 <body class="bg-gray-900 text-gray-300">
 
-    <header class="text-center py-12 md:py-20 px-4 relative section-bg z-0" style="background-image: url('https://i.urusai.cc/LpSoo.jpg');">
+    <header class="text-center py-12 md:py-20 px-4 section-bg" style="background-image: url('https://i.urusai.cc/LpSoo.jpg');">
         <h1 class="text-4xl md:text-6xl font-bold text-yellow-300 tracking-wider">線上塔羅神諭</h1>
         <p class="text-lg md:text-xl mt-4 text-indigo-300">探索自我・洞見未來</p>
     </header>
 
     <main class="container mx-auto px-4 py-8 max-w-7xl">
 
-        <section id="introduction" class="mb-16 bg-gray-800 bg-opacity-50 p-8 rounded-2xl shadow-lg relative section-bg z-0" style="background-image: url('https://i.urusai.cc/1BR6T.jpg');">
-            <h2 class="text-3xl font-bold text-yellow-300 mb-6 border-b-2 border-yellow-300 border-opacity-50 pb-3">塔羅的智慧之旅</h2>
+        <section id="introduction" class="mb-16 bg-gray-800/50 p-8 rounded-2xl shadow-lg section-bg" style="background-image: url('https://i.urusai.cc/1BR6T.jpg');">
+            <h2 class="text-3xl font-bold text-yellow-300 mb-6 border-b-2 border-yellow-300/50 pb-3">塔羅的智慧之旅</h2>
             <div class="space-y-6 text-base md:text-lg leading-relaxed text-gray-200">
-                <p>塔羅牌不僅僅是一種預測未來的工具，其更深層次的目的是為了解決問題、認識自我。它是一套透過圖像來認識自我、覺察問題的牌卡。因此，使用塔羅牌應以解決生活問題、探索內心、尋找人生方向為核心目的，而非僅僅追求預測的準確度。學習的過程本身，就是透過牌卡來體驗生命、讓心靈變得更好。</p>
-                <p>本網站提供免費的線上占卜，幫助您在迷惘時找到方向，在困頓中獲得啟示。請靜下心來，專注於您的問題，讓塔羅牌引領您看見內在的智慧。</p>
+                <p>歡迎來到線上塔羅神諭，一個專為現代探索者設計的心靈工具。在這裡，塔羅牌不僅僅是一種預測未來的工具，其更深層次的目的是為了解決問題、認識自我。它是一套透過圖像來認識自我、覺察問題的牌卡，如同心理學家榮格所提出的，塔羅是探索「集體潛意識」與個人內在「原型」的地圖。</p>
+                <p>因此，使用塔羅牌應以解決生活問題、探索內心、尋找人生方向為核心目的，而非僅僅追求預測的準確度。學習的過程本身，就是透過牌卡來體驗生命、讓心靈變得更好。本網站提供免費的線上占卜，無論您是初學者還是資深玩家，都能在此找到方向，在困頓中獲得啟示。請靜下心來，專注於您的問題，讓塔羅牌引領您看見內在的智慧。</p>
             </div>
         </section>
         
-        <section id="reading-section" class="mb-16 bg-gray-800 bg-opacity-50 p-8 rounded-2xl shadow-lg relative section-bg z-0" style="background-image: url('https://i.urusai.cc/Xv6ar.jpg');">
+        <section id="reading-section" class="mb-16 bg-gray-800/50 p-8 rounded-2xl shadow-lg section-bg" style="background-image: url('https://i.urusai.cc/Xv6ar.jpg');">
             <h2 class="text-3xl font-bold text-yellow-300 mb-8 text-center">線上塔羅占卜</h2>
             
             <div class="text-center mb-8">
                 <p class="text-lg text-indigo-300 mb-4">第一步：選擇您的牌陣</p>
-                <div class="flex justify-center flex-wrap gap-4">
-                    <button id="spread-single-card" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition duration-300">單張牌占卜 (1張)</button>
-                    <button id="spread-cause-effect" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition duration-300">因果牌陣 (2張)</button>
-                    <button id="spread-timeline" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition duration-300">時間之流 (3張)</button>
+                <div id="spread-buttons" class="flex justify-center flex-wrap gap-4">
+                    <button data-spread="single-card" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition duration-300">單張牌占卜 (1張)</button>
+                    <button data-spread="cause-effect" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition duration-300">因果牌陣 (2張)</button>
+                    <button data-spread="timeline" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition duration-300">時間之流 (3張)</button>
                 </div>
             </div>
-             <p id="spread-description" class="text-center text-indigo-200 mb-8 h-12"></p>
+             <p id="spread-description" class="text-center text-indigo-200 mb-8 h-12 transition-opacity duration-300"></p>
             
             <div id="reading-area" class="hidden">
                  <div id="drawn-cards" class="flex justify-center items-start gap-4 md:gap-8 flex-wrap mb-8"></div>
@@ -162,9 +121,9 @@
             </div>
 
             <div id="analysis-and-email-area" class="hidden">
-                <div id="analysis-result" class="bg-gray-900 bg-opacity-40 p-0 md:p-6 rounded-lg"></div>
+                <div id="analysis-result" class="bg-gray-900/40 p-0 md:p-6 rounded-lg"></div>
 
-                <div id="email-form-container" class="mt-12 bg-gray-800 bg-opacity-70 p-8 rounded-2xl">
+                <div class="mt-12 bg-gray-800/70 p-8 rounded-2xl">
                     <h4 class="text-2xl font-bold text-center mb-4 text-yellow-300">寄送詳細分析報告</h4>
                     <p class="text-center text-indigo-300 mb-6 max-w-2xl mx-auto">想獲得更深入的個人化牌義詳解嗎？輸入您的電子信箱，我們將會把完整的分析報告寄送給您。</p>
                     <div class="flex flex-col md:flex-row max-w-lg mx-auto gap-4">
@@ -177,18 +136,18 @@
             </div>
         </section>
 
-        <section id="tarot-learning-section" class="mb-16 bg-gray-800 bg-opacity-50 p-8 rounded-2xl shadow-lg">
+        <section id="tarot-learning-section" class="mb-16 bg-gray-800/50 p-8 rounded-2xl shadow-lg">
             <h2 class="text-3xl font-bold text-yellow-300 mb-8 text-center">塔羅入門教學</h2>
             <div class="space-y-8 text-lg leading-relaxed text-gray-200 max-w-4xl mx-auto">
-                <div>
+                <article>
                     <h3 class="text-2xl font-semibold text-indigo-300 mb-4">核心理念：塔羅不是通靈，而是心理學</h3>
                     <p>塔羅的運作原理並非超自然現象，而是奠基於著名心理學家卡爾·榮格 (Carl Jung) 的理論。透過「集體潛意識」、「原型」與「共時性原理」，塔羅成為一面映照內在宇宙、與靈魂對話的動態地圖，而非一套僵化的預測系統。</p>
-                </div>
-                <div>
+                </article>
+                <article>
                     <h3 class="text-2xl font-semibold text-indigo-300 mb-4">完整結構：大牌 vs. 小牌</h3>
                     <p>一副牌由22張<b class="text-yellow-300">大阿爾克那 (大牌)</b> 與56張<b class="text-yellow-300">小阿爾克那 (小牌)</b> 組成。大牌代表影響深遠的生命課題，是個人無法輕易控制的「人生主線」；小牌則反映日常生活的具體事件，是個人可以掌握的「每日場景」。</p>
-                </div>
-                 <div>
+                </article>
+                <article>
                     <h3 class="text-2xl font-semibold text-indigo-300 mb-4">四大元素牌組</h3>
                     <p>小牌分為四大牌組，對應西方神秘學的四大元素，代表生活的不同面向：</p>
                     <ul class="list-disc list-inside space-y-2 mt-4 pl-4 text-gray-300">
@@ -197,77 +156,46 @@
                         <li><b class="text-blue-400">寶劍 (Swords) - 風元素：</b>代表思想、溝通、挑戰與衝突。</li>
                         <li><b class="text-red-400">錢幣 (Pentacles) - 土元素：</b>代表物質、金錢、工作與穩定。</li>
                     </ul>
-                </div>
-                 <div>
+                </article>
+                <article>
                     <h3 class="text-2xl font-semibold text-indigo-300 mb-4">宮廷牌角色：16位王室成員</h3>
                     <p>每個牌組中的宮廷牌（侍者、騎士、皇后、國王）代表人格特質或處事態度，象徵不同的成熟度：</p>
-                     <ul class="list-disc list-inside space-y-2 mt-4 pl-4 text-gray-300">
+                    <ul class="list-disc list-inside space-y-2 mt-4 pl-4 text-gray-300">
                         <li><b class="text-gray-400">侍者 (Page)：</b>充滿好奇心的孩子，代表學習與探索。</li>
                         <li><b class="text-gray-400">騎士 (Knight)：</b>懷揣使命的年輕人，代表行動與追求。</li>
                         <li><b class="text-gray-400">皇后 (Queen)：</b>溫柔包容的內在主宰，代表滋養與感受。</li>
                         <li><b class="text-gray-400">國王 (King)：</b>成熟穩重的外在領袖，代表掌控與責任。</li>
                     </ul>
-                </div>
-                <div>
+                </article>
+                 <article>
                     <h3 class="text-2xl font-semibold text-indigo-300 mb-4">逆位牌的解讀</h3>
                     <p>逆位牌不只是「壞消息」。它代表正位能量的一種變化，可能表示能量被「阻塞」、「濫用」或以「不尋常」的方式展現，邀請您更深入地探究牌卡傳達的細膩訊息。</p>
-                </div>
+                </article>
             </div>
         </section>
 
-        <section id="card-meaning-section" class="bg-gray-800 bg-opacity-50 p-8 rounded-2xl shadow-lg relative section-bg z-0" style="background-image: url('https://i.urusai.cc/4390g.jpg');">
+        <section id="card-meaning-section" class="bg-gray-800/50 p-8 rounded-2xl shadow-lg section-bg" style="background-image: url('https://i.urusai.cc/4390g.jpg');">
             <h2 class="text-3xl font-bold text-yellow-300 mb-8 text-center">78張塔羅牌義詳解</h2>
-            <details>
-                <summary>大阿爾克那 (Major Arcana)</summary>
-                <div class="card-grid-container">
-                    <div id="major-fool-container" class="flex justify-center mb-4"></div>
-                    <div id="major-main-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4"></div>
-                    <div id="major-world-container" class="flex justify-center mt-4"></div>
-                </div>
+            <details class="group">
+                <summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-2xl font-semibold text-yellow-400 flex justify-between items-center transition-colors duration-300 hover:bg-gray-800">大阿爾克那 (Major Arcana)<span class="plus-icon text-4xl text-indigo-400">+</span></summary>
+                <div class="p-6 bg-gray-900/70"><div id="major-fool-container" class="flex justify-center mb-4"></div><div id="major-main-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4"></div><div id="major-world-container" class="flex justify-center mt-4"></div></div>
             </details>
-            <details>
-                <summary>權杖 (Wands)</summary>
-                 <div class="card-grid-container">
-                    <div id="wands-grid-main" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-4"></div>
-                    <div id="wands-grid-last" class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"></div>
-                </div>
-            </details>
-            <details>
-                <summary>聖杯 (Cups)</summary>
-                <div class="card-grid-container">
-                    <div id="cups-grid-main" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-4"></div>
-                    <div id="cups-grid-last" class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"></div>
-                </div>
-            </details>
-            <details>
-                <summary>寶劍 (Swords)</summary>
-                <div class="card-grid-container">
-                    <div id="swords-grid-main" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-4"></div>
-                    <div id="swords-grid-last" class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"></div>
-                </div>
-            </details>
-            <details>
-                <summary>錢幣 (Pentacles)</summary>
-                <div class="card-grid-container">
-                    <div id="pentacles-grid-main" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-4"></div>
-                    <div id="pentacles-grid-last" class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"></div>
-                </div>
-            </details>
+            <details class="group"><summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-2xl font-semibold text-yellow-400 flex justify-between items-center transition-colors duration-300 hover:bg-gray-800">權杖 (Wands)<span class="plus-icon text-4xl text-indigo-400">+</span></summary><div class="p-6 bg-gray-900/70"><div id="wands-grid-main" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-4"></div><div id="wands-grid-last" class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"></div></div></details>
+            <details class="group"><summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-2xl font-semibold text-yellow-400 flex justify-between items-center transition-colors duration-300 hover:bg-gray-800">聖杯 (Cups)<span class="plus-icon text-4xl text-indigo-400">+</span></summary><div class="p-6 bg-gray-900/70"><div id="cups-grid-main" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-4"></div><div id="cups-grid-last" class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"></div></div></details>
+            <details class="group"><summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-2xl font-semibold text-yellow-400 flex justify-between items-center transition-colors duration-300 hover:bg-gray-800">寶劍 (Swords)<span class="plus-icon text-4xl text-indigo-400">+</span></summary><div class="p-6 bg-gray-900/70"><div id="swords-grid-main" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-4"></div><div id="swords-grid-last" class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"></div></div></details>
+            <details class="group"><summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-2xl font-semibold text-yellow-400 flex justify-between items-center transition-colors duration-300 hover:bg-gray-800">錢幣 (Pentacles)<span class="plus-icon text-4xl text-indigo-400">+</span></summary><div class="p-6 bg-gray-900/70"><div id="pentacles-grid-main" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 mb-4"></div><div id="pentacles-grid-last" class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"></div></div></details>
         </section>
         
-        <section id="faq-section" class="mt-16 bg-gray-800 bg-opacity-50 p-8 rounded-2xl shadow-lg relative section-bg z-0" style="background-image: url('https://i.urusai.cc/FEyM3.jpg');">
+        <section id="faq-section" class="mt-16 bg-gray-800/50 p-8 rounded-2xl shadow-lg section-bg" style="background-image: url('https://i.urusai.cc/FEyM3.jpg');">
             <h2 class="text-3xl font-bold text-yellow-300 mb-8 text-center">塔羅牌常見問題 (FAQ)</h2>
             <div class="space-y-4">
-                <details><summary class="text-xl text-indigo-300 hover:text-yellow-300">塔羅牌是什麼？</summary><div class="pt-2 pb-4 px-4 text-gray-400"><p>塔羅牌不僅是一種預測未來的工具，其更深層次的目的是為了解決問題、認識自我。它是一套由78張圖像豐富的卡牌組成的系統，透過圖像來幫助我們認識自我、覺察問題。使用塔羅牌應以解決生活問題、探索內心、尋找人生方向為核心目的。</p></div></details>
-                <details><summary class="text-xl text-indigo-300 hover:text-yellow-300">塔羅牌占卜如何運作？</summary><div class="pt-2 pb-4 px-4 text-gray-400"><p>塔羅牌的運作並非基於神秘力量，而是主要作為一種連結使用者「潛意識」的工具，其原理可由心理學家榮格的「集體潛意識」與「共時性原理」來解釋。當您專注於一個問題並抽出牌卡時，所選出的牌會與您個人的頻率產生共振，反映出您當下的內心狀態、課題與潛在的可能性。解牌的過程，就是將這些圖像語言轉化為對現實生活的洞見與指引。</p></div></details>
-                <details><summary class="text-xl text-indigo-300 hover:text-yellow-300">塔羅牌占卜準確嗎？</summary><div class="pt-2 pb-4 px-4 text-gray-400"><p>塔羅牌的準確性源於它反映了您當下的狀態與能量。它並非宿命論，而是揭示在「不做出改變」的情況下，最有可能發生的未來。如果您的心態或行動改變了，結果也會隨之改變。因此，塔羅牌的真正目的不是「算準」，而是引導人們看見可能性，從而創造自己想要的命運。</p></div></details>
-                <details><summary class="text-xl text-indigo-300 hover:text-yellow-300">大阿爾克那（大牌）和小阿爾克那（小牌）有什麼不同？</summary><div class="pt-2 pb-4 px-4 text-gray-400"><p>大阿爾克那（22張）代表宇宙性的宏觀能量、重大的生命課題或人生轉折點，其影響是深遠且長期的，是個人較難以意志完全掌控的部分。小阿爾克那（56張）則更貼近日常生活，描繪具體的事件、情境與個人心態，是個人可以透過行動去改變的部分。</p></div></details>
-                <details><summary class="text-xl text-indigo-300 hover:text-yellow-300">正位和逆位牌有什麼意義？</summary><div class="pt-2 pb-4 px-4 text-gray-400"><p>逆位並非單純的正位相反意思，而是正位能量的一種變化。它可能代表能量被壓抑、過度或不足、延遲，或是需要從不同的角度去理解。初學者可以先專注於正位牌義，待熟悉後再深入探索逆位所帶來的豐富解讀層次。</p></div></details>
-                <details><summary class="text-xl text-indigo-300 hover:text-yellow-300">可以替自己占卜嗎？</summary><div class="pt-2 pb-4 px-4 text-gray-400"><p>可以。替自己占卜能更深入了解自身狀況，並將牌義與實際生活連結。但初學者需注意保持客觀，避免因「當局者迷」而影響解讀。</p></div></details>
-                <details><summary class="text-xl text-indigo-300 hover:text-yellow-300">塔羅牌有「牌精」嗎？需要「養牌」嗎？</summary><div class="pt-2 pb-4 px-4 text-gray-400"><p>不需要。所謂「牌精」或「養牌」的說法在歐美並不流行。塔羅牌本身僅是工具，並無任何魔力或靈體。其準確性來自使用者的潛意識與共時性原理，而非神秘力量。</p></div></details>
-                <details><summary class="text-xl text-indigo-300 hover:text-yellow-300">牌可以讓別人觸摸嗎？</summary><div class="pt-2 pb-4 px-4 text-gray-400"><p>可以。牌本身是工具，讓別人觸摸並不會影響準確度。在占卜時，讓問卜者親自抽牌，更能使其潛意識與牌產生直接連結。</p></div></details>
-                <details><summary class="text-xl text-indigo-300 hover:text-yellow-300">同樣的問題可以重複算嗎？</summary><div class="pt-2 pb-4 px-4 text-gray-400"><p>不建議。在狀況未發生實質改變前，重複占卜通常源於對第一次結果的不滿或不信，此心態會干擾潛意識的連結，導致結果失準。這與《易經》「再三瀆，瀆則不告」的道理相通。</p></div></details>
-                <details><summary class="text-xl text-indigo-300 hover:text-yellow-300">我應該如何提問？</summary><div class="pt-2 pb-4 px-4 text-gray-400"><p>一個清晰的問題才能得到清晰的答案。建議提出開放式問題（例如「我該如何改善我的工作狀況？」）而非封閉式的是非題。對於初學者，可以將問題統一設定為「未來三個月的[某領域]發展如何？」來進行練習。</p></div></details>
+                <details class="group"><summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-xl text-indigo-300 hover:text-yellow-300 flex justify-between items-center">塔羅牌是什麼？ <span class="plus-icon text-3xl text-indigo-400">+</span></summary><div class="pt-2 pb-4 px-6 text-gray-400"><p>塔羅牌不僅是一種預測未來的工具，其更深層次的目的是為了解決問題、認識自我。它是一套由78張圖像豐富的卡牌組成的系統，透過圖像來幫助我們認識自我、覺察問題。使用塔羅牌應以解決生活問題、探索內心、尋找人生方向為核心目的。</p></div></details>
+                <details class="group"><summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-xl text-indigo-300 hover:text-yellow-300 flex justify-between items-center">塔羅牌占卜如何運作？ <span class="plus-icon text-3xl text-indigo-400">+</span></summary><div class="pt-2 pb-4 px-6 text-gray-400"><p>塔羅牌的運作並非基於神秘力量，而是主要作為一種連結使用者「潛意識」的工具，其原理可由心理學家榮格的「集體潛意識」與「共時性原理」來解釋。當您專注於一個問題並抽出牌卡時，所選出的牌會與您個人的頻率產生共振，反映出您當下的內心狀態、課題與潛在的可能性。</p></div></details>
+                <details class="group"><summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-xl text-indigo-300 hover:text-yellow-300 flex justify-between items-center">塔羅牌占卜準確嗎？ <span class="plus-icon text-3xl text-indigo-400">+</span></summary><div class="pt-2 pb-4 px-6 text-gray-400"><p>塔羅牌的準確性源於它反映了您當下的狀態與能量。它並非宿命論，而是揭示在「不做出改變」的情況下，最有可能發生的未來。如果您的心態或行動改變了，結果也會隨之改變。因此，塔羅牌的真正目的不是「算準」，而是引導人們看見可能性，從而創造自己想要的命運。</p></div></details>
+                <details class="group"><summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-xl text-indigo-300 hover:text-yellow-300 flex justify-between items-center">大阿爾克那和小阿爾克那有什麼不同？ <span class="plus-icon text-3xl text-indigo-400">+</span></summary><div class="pt-2 pb-4 px-6 text-gray-400"><p>大阿爾克那（22張）代表宇宙性的宏觀能量、重大的生命課題或人生轉折點，其影響是深遠且長期的。小阿爾克那（56張）則更貼近日常生活，描繪具體的事件、情境與個人心態，是個人可以透過行動去改變的部分。</p></div></details>
+                <details class="group"><summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-xl text-indigo-300 hover:text-yellow-300 flex justify-between items-center">正位和逆位牌有什麼意義？ <span class="plus-icon text-3xl text-indigo-400">+</span></summary><div class="pt-2 pb-4 px-6 text-gray-400"><p>逆位並非單純的正位相反意思，而是正位能量的一種變化。它可能代表能量被壓抑、過度或不足、延遲，或是需要從不同的角度去理解。初學者可以先專注於正位牌義，待熟悉後再深入探索逆位所帶來的豐富解讀層次。</p></div></details>
+                <details class="group"><summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-xl text-indigo-300 hover:text-yellow-300 flex justify-between items-center">同樣的問題可以重複算嗎？ <span class="plus-icon text-3xl text-indigo-400">+</span></summary><div class="pt-2 pb-4 px-6 text-gray-400"><p>不建議。在狀況未發生實質改變前，重複占卜通常源於對第一次結果的不滿或不信，此心態會干擾潛意識的連結，導致結果失準。這與《易經》「再三瀆，瀆則不告」的道理相通。</p></div></details>
+                <details class="group"><summary class="list-none cursor-pointer p-6 border-b border-gray-700 text-xl text-indigo-300 hover:text-yellow-300 flex justify-between items-center">我應該如何提問？ <span class="plus-icon text-3xl text-indigo-400">+</span></summary><div class="pt-2 pb-4 px-6 text-gray-400"><p>一個清晰的問題才能得到清晰的答案。建議提出開放式問題（例如「我該如何改善我的工作狀況？」）而非封閉式的是非題。對於初學者，可以將問題統一設定為「未來三個月的[某領域]發展如何？」來進行練習。</p></div></details>
             </div>
         </section>
     </main>
@@ -276,23 +204,15 @@
         <p class="text-gray-500">&copy; 2025 線上塔羅神諭. All Rights Reserved <a href="https://www.wedopr.com" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-yellow-300">@WEDO</a></p>
     </footer>
 
-    <div id="card-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex justify-center items-center p-4">
+    <div id="card-modal" class="hidden fixed inset-0 bg-black/75 z-50 flex justify-center items-center p-4">
         <div class="bg-gray-800 text-gray-200 rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative">
-            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl z-10">&times;</button>
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl z-10" aria-label="關閉視窗">&times;</button>
             <div id="modal-content" class="p-6 md:p-8"></div>
         </div>
     </div>
-
+    
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        window.addEventListener('pageshow', (event) => {
-            if (event.persisted) {
-                document.querySelectorAll('details').forEach(detail => {
-                    detail.removeAttribute('open');
-                });
-            }
-        });
-
         const allCards = [
             { name: "愚人", type: "大阿爾克那", img: "https://i.urusai.cc/myiOW.jpeg" }, { name: "魔術師", type: "大阿爾克那", img: "https://i.urusai.cc/V3gw6.jpeg" }, { name: "女祭司", type: "大阿爾克那", img: "https://i.urusai.cc/VNb65.jpeg" }, { name: "皇后", type: "大阿爾克那", img: "https://i.urusai.cc/wVEX3.jpeg" }, { name: "皇帝", type: "大阿爾克那", img: "https://i.urusai.cc/xkvjL.jpeg" }, { name: "教宗", type: "大阿爾克那", img: "https://i.urusai.cc/z233n.jpeg" }, { name: "戀人", type: "大阿爾克那", img: "https://i.urusai.cc/wf8po.jpeg" }, { name: "戰車", type: "大阿爾克那", img: "https://i.urusai.cc/dx9Sn.jpeg" }, { name: "力量", type: "大阿爾克那", img: "https://i.urusai.cc/bnHGo.jpeg" }, { name: "隱士", type: "大阿爾克那", img: "https://i.urusai.cc/GOq3k.jpeg" }, { name: "命運之輪", type: "大阿爾克那", img: "https://i.urusai.cc/zkpMV.jpeg" }, { name: "正義", type: "大阿爾克那", img: "https://i.urusai.cc/E2Wyi.jpeg" }, { name: "吊人", type: "大阿爾克那", img: "https://i.urusai.cc/pkaQf.jpeg" }, { name: "死神", type: "大阿爾克那", img: "https://i.urusai.cc/SUe7O.jpeg" }, { name: "節制", type: "大阿爾克那", img: "https://i.urusai.cc/TN1aj.jpeg" }, { name: "惡魔", type: "大阿爾克那", img: "https://i.urusai.cc/hGBJS.jpeg" }, { name: "塔", type: "大阿爾克那", img: "https://i.urusai.cc/6yuLx.jpeg" }, { name: "星星", type: "大阿爾克那", img: "https://i.urusai.cc/el0N1.jpeg" }, { name: "月亮", type: "大阿爾克那", img: "https://i.urusai.cc/4TPBJ.jpeg" }, { name: "太陽", type: "大阿爾克那", img: "https://i.urusai.cc/yVqvp.jpeg" }, { name: "審判", type: "大阿爾克那", img: "https://i.urusai.cc/32YH1.jpeg" }, { name: "世界", type: "大阿爾克那", img: "https://i.urusai.cc/UKTLH.jpeg" },
             { name: "權杖一", type: "權杖", img: "https://i.urusai.cc/gCsOt.jpeg" }, { name: "權杖二", type: "權杖", img: "https://i.urusai.cc/4X54O.jpeg" }, { name: "權杖三", type: "權杖", img: "https://i.urusai.cc/Qv7wY.jpeg" }, { name: "權杖四", type: "權杖", img: "https://i.urusai.cc/P9vMq.jpeg" }, { name: "權杖五", type: "權杖", img: "https://i.urusai.cc/Hj53f.jpeg" }, { name: "權杖六", type: "權杖", img: "https://i.urusai.cc/z1BJd.jpeg" }, { name: "權杖七", type: "權杖", img: "https://i.urusai.cc/ri4bD.jpeg" }, { name: "權杖八", type: "權杖", img: "https://i.urusai.cc/M5Flf.jpeg" }, { name: "權杖九", type: "權杖", img: "https://i.urusai.cc/H2AjL.jpeg" }, { name: "權杖十", type: "權杖", img: "https://i.urusai.cc/P1S56.jpeg" }, { name: "權杖侍者", type: "權杖", img: "https://i.urusai.cc/12HwY.jpeg" }, { name: "權杖騎士", type: "權杖", img: "https://i.urusai.cc/HUSWA.jpeg" }, { name: "權杖王后", type: "權杖", img: "https://i.urusai.cc/LlOKb.jpeg" }, { name: "權杖國王", type: "權杖", img: "https://i.urusai.cc/XkqoJ.jpeg" },
@@ -1557,68 +1477,70 @@
 
 };
 
+        const SPREAD_CONFIG = {
+            'single-card': { count: 1, labels: ['每日指引'], description: '抽出單張牌，作為每日指引或針對簡單問題的核心建議。', btnText: '抽取單張牌', name: '單張牌占卜' },
+            'cause-effect': { count: 2, labels: ['原因 (因)', '結果 (果)'], description: '抽出兩張牌，分別代表事件的原因與可能的結果。', btnText: '抽取因果牌陣', name: '因果牌陣' },
+            'timeline': { count: 3, labels: ['過去', '現在', '未來'], description: '抽出三張牌，分別代表「過去」、「現在」、「未來」。', btnText: '抽取時間之流', name: '時間之流牌陣' },
+        };
         let currentSpread = null;
         let drawnCardsData = [];
 
-        const spreadSingleCardBtn = document.getElementById('spread-single-card');
-        const spreadCauseEffectBtn = document.getElementById('spread-cause-effect');
-        const spreadTimelineBtn = document.getElementById('spread-timeline');
+        const spreadButtonsContainer = document.getElementById('spread-buttons');
         const drawCardsBtn = document.getElementById('draw-cards-btn');
         const spreadDescription = document.getElementById('spread-description');
         const readingArea = document.getElementById('reading-area');
         const analysisAndEmailArea = document.getElementById('analysis-and-email-area');
+        const modal = document.getElementById('card-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const modalContent = document.getElementById('modal-content');
+        const emailInput = document.getElementById('email-input');
+        const sendEmailBtn = document.getElementById('send-email-btn');
+        const emailStatus = document.getElementById('email-status');
 
-        function createCardElement(card, extraClasses = '') {
+        function createCardElement(card, extraClasses = '', isLazy = false) {
             const cardDiv = document.createElement('div');
             cardDiv.className = `cursor-pointer transform hover:scale-105 transition-transform duration-300 ${extraClasses}`;
-            cardDiv.innerHTML = `<img src="${card.img}" alt="${card.name}" class="card-image shadow-lg hover:shadow-yellow-400/30">`;
+            const lazyLoadingAttr = isLazy ? 'loading="lazy"' : '';
+            cardDiv.innerHTML = `<img src="${card.img}" alt="${card.name}" class="aspect-[2/3.5] w-full h-auto object-cover rounded-lg shadow-lg hover:shadow-yellow-400/30" ${lazyLoadingAttr}>`;
             cardDiv.addEventListener('click', () => showCardDetails(card.name));
             return cardDiv;
         }
-        
-        function populateMajorArcana() {
-            const foolContainer = document.getElementById('major-fool-container');
-            const mainGrid = document.getElementById('major-main-grid');
-            const worldContainer = document.getElementById('major-world-container');
-            const majorCards = allCards.filter(c => c.type === '大阿爾克那');
-            if (majorCards.length > 0) foolContainer.appendChild(createCardElement(majorCards[0], 'w-2/5 sm:w-1/4 md:w-1/5'));
-            if (majorCards.length > 21) worldContainer.appendChild(createCardElement(majorCards[21], 'w-2/5 sm:w-1/4 md:w-1/5'));
-            majorCards.slice(1, 21).forEach(card => mainGrid.appendChild(createCardElement(card)));
-        }
-        
-        function populateMinorArcanaSuit(suitName, suitId) {
-            const mainGrid = document.getElementById(`${suitId}-grid-main`);
-            const lastGrid = document.getElementById(`${suitId}-grid-last`);
-            if (!mainGrid || !lastGrid) return;
-            const suitCards = allCards.filter(c => c.type === suitName);
-            suitCards.slice(0, 10).forEach(card => mainGrid.appendChild(createCardElement(card)));
-            suitCards.slice(10, 14).forEach(card => lastGrid.appendChild(createCardElement(card)));
-        }
-        
-        populateMajorArcana();
-        populateMinorArcanaSuit('權杖', 'wands');
-        populateMinorArcanaSuit('聖杯', 'cups');
-        populateMinorArcanaSuit('寶劍', 'swords');
-        populateMinorArcanaSuit('錢幣', 'pentacles');
 
-        (function(){ emailjs.init("nYyZS-Q-jokmGLMfM"); })();
+        function populateCardGrids() {
+            const majorCards = allCards.filter(c => c.type === '大阿爾克那');
+            if (majorCards.length > 0) {
+                document.getElementById('major-fool-container').appendChild(createCardElement(majorCards[0], 'w-2/5 sm:w-1/4 md:w-1/5', true));
+                const mainGrid = document.getElementById('major-main-grid');
+                majorCards.slice(1, 21).forEach(card => mainGrid.appendChild(createCardElement(card, '', true)));
+                if (majorCards.length > 21) {
+                    document.getElementById('major-world-container').appendChild(createCardElement(majorCards[21], 'w-2/5 sm:w-1/4 md:w-1/5', true));
+                }
+            }
+            
+            ['wands', 'cups', 'swords', 'pentacles'].forEach(suitId => {
+                const suitName = { wands: '權杖', cups: '聖杯', swords: '寶劍', pentacles: '錢幣' }[suitId];
+                const mainGrid = document.getElementById(`${suitId}-grid-main`);
+                const lastGrid = document.getElementById(`${suitId}-grid-last`);
+                if (!mainGrid || !lastGrid) return;
+                
+                const suitCards = allCards.filter(c => c.type === suitName);
+                suitCards.slice(0, 10).forEach(card => mainGrid.appendChild(createCardElement(card, '', true)));
+                suitCards.slice(10, 14).forEach(card => lastGrid.appendChild(createCardElement(card, '', true)));
+            });
+        }
 
         function selectSpread(spreadType, btnElement) {
             currentSpread = spreadType;
+            const config = SPREAD_CONFIG[spreadType];
             drawCardsBtn.disabled = false;
-            [spreadSingleCardBtn, spreadCauseEffectBtn, spreadTimelineBtn].forEach(btn => btn.classList.remove('active-spread'));
-            btnElement.classList.add('active-spread');
-            
-            if (spreadType === 'single-card') {
-                spreadDescription.textContent = '抽出單張牌，作為每日指引或針對簡單問題的核心建議。';
-                drawCardsBtn.textContent = '抽取單張牌';
-            } else if (spreadType === 'cause-effect') {
-                spreadDescription.textContent = '抽出兩張牌，分別代表事件的原因與可能的結果。';
-                drawCardsBtn.textContent = '抽取因果牌陣';
-            } else { // timeline
-                spreadDescription.textContent = '抽出三張牌，分別代表「過去」、「現在」、「未來」。';
-                drawCardsBtn.textContent = '抽取時間之流';
-            }
+            drawCardsBtn.textContent = config.btnText;
+            spreadButtonsContainer.querySelectorAll('button').forEach(btn => {
+                btn.classList.remove('bg-yellow-400', 'text-gray-900', 'font-bold');
+                btn.classList.add('bg-gray-700', 'text-white');
+            });
+            btnElement.classList.remove('bg-gray-700', 'text-white');
+            btnElement.classList.add('bg-yellow-400', 'text-gray-900', 'font-bold');
+            spreadDescription.textContent = config.description;
             displaySpreadPlaceholders(spreadType);
             analysisAndEmailArea.classList.add('hidden');
             readingArea.classList.remove('hidden');
@@ -1626,191 +1548,180 @@
         
         function displaySpreadPlaceholders(spreadType) {
             const drawnCardsDiv = document.getElementById('drawn-cards');
-            const labels = getSpreadLabels(spreadType);
-            drawnCardsDiv.innerHTML = '';
-            labels.forEach(label => {
-                const placeholder = document.createElement('div');
-                placeholder.className = 'text-center w-[45%] md:w-[30%] max-w-[220px] flex-shrink-0';
-                placeholder.innerHTML = `<p class="font-semibold text-lg mb-2 text-indigo-300 h-8">${label}</p><div class="card-image bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg"></div><p class="mt-2 font-semibold text-gray-500 h-7">-</p>`;
-                drawnCardsDiv.appendChild(placeholder);
-            });
+            const labels = SPREAD_CONFIG[spreadType].labels;
+            drawnCardsDiv.innerHTML = labels.map(label => `
+                <div class="text-center w-[45%] md:w-[30%] max-w-[220px] flex-shrink-0">
+                    <p class="font-semibold text-lg mb-2 text-indigo-300 h-8">${label}</p>
+                    <div class="aspect-[2/3.5] bg-gray-700 border-2 border-dashed border-gray-500 rounded-lg"></div>
+                    <p class="mt-2 font-semibold text-gray-500 h-7">-</p>
+                </div>
+            `).join('');
         }
         
         function drawCards() {
-            if (!currentSpread || Object.keys(detailedCardMeanings).length === 0) return;
+            if (!currentSpread || typeof allCards === 'undefined' || allCards.length === 0) return;
+            const config = SPREAD_CONFIG[currentSpread];
             const shuffledDeck = [...allCards].sort(() => 0.5 - Math.random());
-            
-            let numCards;
-            if (currentSpread === 'single-card') numCards = 1;
-            else if (currentSpread === 'cause-effect') numCards = 2;
-            else numCards = 3;
-
-            drawnCardsData = [];
-            for (let i = 0; i < numCards; i++) {
+            drawnCardsData = Array.from({ length: config.count }, () => {
                 const card = shuffledDeck.pop();
                 const isReversed = Math.random() < 0.5;
-                drawnCardsData.push({ ...card, isReversed });
-            }
+                return { ...card, isReversed };
+            });
             displayReadingResult();
-        }
-        
-        function getFullCardData(cardName) {
-            return detailedCardMeanings[cardName] || null;
-        }
-
-        function getSpreadLabels(spreadType) {
-            if (spreadType === 'single-card') return ['每日指引'];
-            if (spreadType === 'cause-effect') return ['原因 (因)', '結果 (果)'];
-            if (spreadType === 'timeline') return ['過去', '現在', '未來'];
-            return [];
         }
 
         function displayReadingResult() {
             const drawnCardsDiv = document.getElementById('drawn-cards');
             const analysisResultDiv = document.getElementById('analysis-result');
-            drawnCardsDiv.innerHTML = '';
-            analysisResultDiv.innerHTML = '';
-            const labels = getSpreadLabels(currentSpread);
-            
-            drawnCardsData.forEach((card, index) => {
-                const cardEl = document.createElement('div');
-                cardEl.className = 'text-center w-[45%] md:w-[30%] max-w-[220px] flex-shrink-0';
-                
-                cardEl.innerHTML = `
+            const labels = SPREAD_CONFIG[currentSpread].labels;
+            drawnCardsDiv.innerHTML = drawnCardsData.map((card, index) => `
+                <div class="text-center w-[45%] md:w-[30%] max-w-[220px] flex-shrink-0">
                     <p class="font-semibold text-lg mb-2 text-indigo-300 h-8">${labels[index]}</p>
-                    <img src="${card.img}" alt="${card.name}" class="card-image shadow-lg cursor-pointer transform hover:scale-105 transition-transform duration-300 ${card.isReversed ? 'rotate-180' : ''}">
+                    <img src="${card.img}" alt="${card.name}" class="card-image shadow-lg cursor-pointer transform hover:scale-105 transition-transform duration-300 ${card.isReversed ? 'rotate-180' : ''}" data-card-name="${card.name}">
                     <p class="mt-2 font-semibold text-gray-200 h-7">${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</p>
-                `;
-                
-                const imgElement = cardEl.querySelector('img');
-                if (imgElement) {
-                    imgElement.addEventListener('click', () => showCardDetails(card.name));
+                </div>
+            `).join('');
+            
+            drawnCardsDiv.addEventListener('click', (e) => {
+                if (e.target && e.target.matches('img[data-card-name]')) {
+                    showCardDetails(e.target.dataset.cardName);
                 }
-                
-                drawnCardsDiv.appendChild(cardEl);
             });
 
-            let analysisHTML = '<h3 class="text-2xl font-bold text-center mb-6 text-yellow-300">初步牌義解讀</h3>';
-            drawnCardsData.forEach((card, index) => {
-                const fullCardData = getFullCardData(card.name);
-                if (!fullCardData || !fullCardData.on_page) {
-                     analysisHTML += `<div class="analysis-card-block"><h4 class="text-xl font-bold text-indigo-300 mb-3">${labels[index]}：${card.name}</h4><p>此牌卡的詳細牌義內容待補充。</p></div>`;
-                     return;
-                };
-                const onPageData = fullCardData.on_page;
-                const positionMeaning = card.isReversed ? onPageData.reversed_meaning : onPageData.upright_meaning;
-                const positionTitle = card.isReversed ? '逆位提醒' : '正位指引';
-                analysisHTML += `<div class="analysis-card-block"><h4 class="text-xl font-bold text-indigo-300 mb-3">${labels[index]}：${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</h4><p class="text-gray-300 italic">${onPageData.description}</p><div class="analysis-concepts"><p><b>${onPageData.keywords}</b></p><p class="mb-0"><b>${onPageData.concept}</b></p></div><div class="analysis-guidance"><h5>${positionTitle}</h5><p class="text-gray-200">${positionMeaning.replace(/\／/g, '<br>')}</p></div></div>`;
-            });
-            analysisResultDiv.innerHTML = analysisHTML;
+            analysisResultDiv.innerHTML = `
+                <h3 class="text-2xl font-bold text-center mb-6 text-yellow-300">初步牌義解讀</h3>
+                ${drawnCardsData.map((card, index) => {
+                    const fullCardData = detailedCardMeanings[card.name];
+                    if (!fullCardData?.on_page || fullCardData.on_page.description === "待補充...") {
+                         return `<div class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 mb-6"><h4 class="text-xl font-bold text-indigo-300 mb-3">${labels[index]}：${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</h4><p>此牌卡的詳細牌義內容待補充。</p></div>`;
+                    }
+                    const { description, keywords, concept, upright_meaning, reversed_meaning } = fullCardData.on_page;
+                    const positionMeaning = card.isReversed ? reversed_meaning : upright_meaning;
+                    const positionTitle = card.isReversed ? '逆位提醒' : '正位指引';
+                    return `
+                        <div class="bg-gray-800/70 border border-gray-700 rounded-xl p-6 mb-6">
+                            <h4 class="text-xl font-bold text-indigo-300 mb-3">${labels[index]}：${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</h4>
+                            <p class="text-gray-300 italic">${description}</p>
+                            <div class="bg-gray-900/60 border-l-4 border-yellow-400 p-4 rounded-md my-4 text-sm">
+                                <p><b>${keywords}</b></p>
+                                <p class="mb-0"><b>${concept}</b></p>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-dashed border-gray-600">
+                                <h5 class="text-lg font-bold text-indigo-300 mb-2">${positionTitle}</h5>
+                                <p class="text-gray-200">${positionMeaning.replace(/\／/g, '<br>')}</p>
+                            </div>
+                        </div>`;
+                }).join('')}
+            `;
             analysisAndEmailArea.classList.remove('hidden');
         }
 
         function showCardDetails(cardName) {
-            const cardData = getFullCardData(cardName);
+            const cardData = detailedCardMeanings[cardName];
             const baseInfo = allCards.find(c => c.name === cardName);
-            
-            const modalContent = document.getElementById('modal-content');
-            if (!cardData || !baseInfo || !cardData.on_page) {
-                modalContent.innerHTML = `<div class="text-center"><h2 class="text-3xl font-bold mt-4 text-yellow-300">${cardName}</h2><p class="text-indigo-300 mt-2">${baseInfo ? baseInfo.type : ''}</p><p class="mt-4 text-gray-400">此牌卡的詳細牌義內容待補充。</p></div>`;
-                document.getElementById('card-modal').classList.remove('hidden');
-                return;
-            };
-
-            modalContent.innerHTML = `<div class="md:flex md:gap-8"><div class="md:w-1/3 text-center mb-6 md:mb-0"><img src="${baseInfo.img}" alt="${baseInfo.name}" class="w-full max-w-[250px] mx-auto rounded-lg shadow-xl"><h2 class="text-3xl font-bold mt-4 text-yellow-300">${cardName}</h2><p class="text-indigo-300">${baseInfo.type}</p></div><div class="md:w-2/3 space-y-4 text-left"><p class="italic">${cardData.on_page.description}</p><div class="p-4 bg-gray-700 rounded-lg text-sm"><p><b>${cardData.on_page.keywords}</b></p><p class="mb-0"><b>${cardData.on_page.concept}</b></p></div></div></div>`;
-            document.getElementById('card-modal').classList.remove('hidden');
+            if (!baseInfo) return;
+            let contentHTML = `<div class="md:flex md:gap-8"><div class="md:w-1/3 text-center mb-6 md:mb-0"><img src="${baseInfo.img}" alt="${baseInfo.name}" class="w-full max-w-[250px] mx-auto rounded-lg shadow-xl"><h2 class="text-3xl font-bold mt-4 text-yellow-300">${cardName}</h2><p class="text-indigo-300">${baseInfo.type}</p></div>`;
+            if (cardData?.on_page && cardData.on_page.description !== "待補充...") {
+                const { description, keywords, concept } = cardData.on_page;
+                contentHTML += `<div class="md:w-2/3 space-y-4 text-left"><p class="italic">${description}</p><div class="p-4 bg-gray-700 rounded-lg text-sm"><p><b>${keywords}</b></p><p class="mb-0"><b>${concept}</b></p></div></div>`;
+            } else {
+                contentHTML += `<div class="md:w-2/3 space-y-4 text-left"><p class="mt-4 text-gray-400">此牌卡的詳細牌義內容待補充。</p></div>`;
+            }
+            contentHTML += `</div>`;
+            modalContent.innerHTML = contentHTML;
+            modal.classList.remove('hidden');
         }
-
-        function sendEmail() {
-            const emailInput = document.getElementById('email-input');
-            const sendBtn = document.getElementById('send-email-btn');
-            const emailStatus = document.getElementById('email-status');
+        
+        async function sendEmail() {
             if (!emailInput.value || !/^\S+@\S+\.\S+$/.test(emailInput.value)) {
                 emailStatus.textContent = '請輸入有效的電子信箱格式。';
-                emailStatus.style.color = '#f87171';
+                emailStatus.className = 'text-center mt-4 h-6 text-red-400';
                 return;
             }
             if (drawnCardsData.length === 0) {
                 emailStatus.textContent = '請先抽牌後再寄送報告。';
-                emailStatus.style.color = '#facc15';
+                emailStatus.className = 'text-center mt-4 h-6 text-yellow-400';
                 return;
             }
-            sendBtn.disabled = true;
-            sendBtn.textContent = '寄送中...';
+
+            sendEmailBtn.disabled = true;
+            sendEmailBtn.textContent = '寄送中...';
             emailStatus.textContent = '';
             
-            let spreadName;
-            if (currentSpread === 'single-card') spreadName = '單張牌占卜';
-            else if (currentSpread === 'cause-effect') spreadName = '因果牌陣';
-            else spreadName = '時間之流';
-
-            const labels = getSpreadLabels(currentSpread);
+            const spreadName = SPREAD_CONFIG[currentSpread].name;
+            const labels = SPREAD_CONFIG[currentSpread].labels;
             
             const templateParams = {
                 to_email: emailInput.value,
                 spread_name: spreadName,
-                drawn_cards_html: generateDrawnCardsHtml(drawnCardsData, labels),
-                analysis_detail_html: generateAnalysisDetailHtml(drawnCardsData, labels)
+                drawn_cards_html: generateEmailHtmlParts.drawnCards(drawnCardsData, labels),
+                analysis_detail_html: generateEmailHtmlParts.analysisDetail(drawnCardsData, labels)
             };
-            emailjs.send('service_tu3puek', 'template_pexhwes', templateParams)
-                .then(function(response) {
-                   emailStatus.textContent = '分析報告已成功寄送！';
-                   emailStatus.style.color = '#4ade80';
-                   sendBtn.textContent = '重新占卜';
-                   const newBtn = sendBtn.cloneNode(true);
-                   sendBtn.parentNode.replaceChild(newBtn, sendBtn);
-                   newBtn.addEventListener('click', () => { window.location.href = 'https://tarot.wedopr.com/'; });
-                }, function(error) {
-                   emailStatus.textContent = '寄送失敗，請檢查 EmailJS 的設定。';
-                   emailStatus.style.color = '#f87171';
-                   sendBtn.disabled = false;
-                   sendBtn.textContent = '寄送報告';
-                });
+
+            try {
+                await emailjs.send('service_tu3puek', 'template_pexhwes', templateParams);
+                emailStatus.textContent = '分析報告已成功寄送！';
+                emailStatus.className = 'text-center mt-4 h-6 text-green-400';
+                sendEmailBtn.textContent = '重新占卜';
+                
+                const newBtn = sendEmailBtn.cloneNode(true);
+                sendEmailBtn.parentNode.replaceChild(newBtn, sendEmailBtn);
+                newBtn.addEventListener('click', () => window.location.reload());
+            } catch (error) {
+                emailStatus.textContent = '寄送失敗，請稍後再試。';
+                emailStatus.className = 'text-center mt-4 h-6 text-red-400';
+                sendEmailBtn.disabled = false;
+                sendEmailBtn.textContent = '寄送報告';
+            }
         }
         
-        function generateDrawnCardsHtml(cards, labels) {
-            let html = '<table border="0" width="100%" cellspacing="0" cellpadding="0"><tr>';
-            cards.forEach((card, index) => {
-                html += `<td align="center" style="padding: 0 5px; vertical-align: top; width: 33.3%;"><p style="font-size: 16px; font-weight: 600; color: #a5b4fc; margin: 0 0 8px 0;">${labels[index]}</p><img src="${card.img}" alt="${card.name}" style="border-radius: 8px; width: 100%; max-width: 180px; height: auto; ${card.isReversed ? 'transform: rotate(180deg);' : ''}"><p style="font-size: 16px; font-weight: 600; color: #e5e7eb; margin: 8px 0 0 0;">${card.name} ${card.isReversed ? '(逆位)' : ''}</p></td>`;
-            });
-            html += '</tr></table>';
-            return html;
-        }
+        const generateEmailHtmlParts = {
+            drawnCards: (cards, labels) => {
+                let html = '<table border="0" width="100%" cellspacing="0" cellpadding="0"><tr>';
+                cards.forEach((card, index) => {
+                    html += `<td align="center" style="padding: 0 5px; vertical-align: top; width: 33.3%;"><p style="font-size: 16px; font-weight: 600; color: #a5b4fc; margin: 0 0 8px 0;">${labels[index]}</p><img src="${card.img}" alt="${card.name}" style="border-radius: 8px; width: 100%; max-width: 180px; height: auto; ${card.isReversed ? 'transform: rotate(180deg);' : ''}"><p style="font-size: 16px; font-weight: 600; color: #e5e7eb; margin: 8px 0 0 0;">${card.name} ${card.isReversed ? '(逆位)' : ''}</p></td>`;
+                });
+                return html + '</tr></table>';
+            },
+            analysisDetail: (cards, labels) => {
+                const nl2br = (str) => str ? str.replace(/\n/g, '<br>') : '';
+                return cards.map((card, index) => {
+                    const fullCardData = detailedCardMeanings[card.name];
+                    if (!fullCardData?.on_page || !fullCardData?.email_detail || fullCardData.on_page.description === "待補充...") {
+                        return `<div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #374151;"><h3 style="font-size: 20px; font-weight: 600; color: #a5b4fc; margin: 0 0 16px 0;">${labels[index]}：${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</h3><p>此牌卡的詳細牌義內容待補充。</p></div>`;
+                    }
+                    const { on_page, email_detail } = fullCardData;
+                    const positionMeaning = card.isReversed ? on_page.reversed_meaning : on_page.upright_meaning;
+                    const positionTitle = card.isReversed ? '逆位提醒' : '正位指引';
+                    const detailAnalysis = card.isReversed ? email_detail.reversed_analysis : email_detail.upright_analysis;
+                    const detailAnalysisTitle = card.isReversed ? '【逆位牌義詳解】' : '【正位牌義詳解】';
+                    
+                    return `<div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #374151;"><h3 style="font-size: 20px; font-weight: 600; color: #a5b4fc; margin: 0 0 16px 0;">${labels[index]}：${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</h3><div style="background-color: #2d3748; padding: 15px; border-radius: 6px; margin-bottom: 24px;"><p style="margin: 0 0 12px 0; font-style: italic; color: #d1d5db;">${on_page.description}</p><div style="padding-top:12px; border-top: 1px dashed #4b5563;"><p style="margin: 10px 0; font-size: 14px; color: #e5e7eb;"><b>${on_page.keywords}</b></p><p style="margin: 0; font-size: 14px; color: #e5e7eb;"><b>${on_page.concept}</b></p></div><div style="padding-top: 12px; margin-top:12px; border-top: 1px dashed #4b5563;"><p style="margin: 0; font-weight: bold; color: #a5b4fc;">${positionTitle}:</p><p style="margin: 5px 0 0 0; color: #e5e7eb;">${positionMeaning.replace(/\／/g, '<br>')}</p></div></div><div style="line-height: 1.8; color: #d1d5db; font-size: 15px;"><p><b>【牌義推演與象徵】</b><br>${nl2br(email_detail.symbolism)}</p><p><b>${detailAnalysisTitle}</b><br>${nl2br(detailAnalysis)}</p><p><b>【代表人物與原型】</b><br>${nl2br(email_detail.archetype)}</p><p><b>【綜合解讀提示】</b><br>${nl2br(email_detail.summary)}</p></div></div>`;
+                }).join('');
+            }
+        };
 
-        function generateAnalysisDetailHtml(cards, labels) {
-            const nl2br = (str) => str ? str.replace(/\n/g, '<br>') : '';
-            let html = '';
-            cards.forEach((card, index) => {
-                const fullCardData = getFullCardData(card.name);
-                if (!fullCardData || !fullCardData.on_page || !fullCardData.email_detail) {
-                   html += `<div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #374151;"><h3 style="font-size: 20px; font-weight: 600; color: #a5b4fc; margin: 0 0 16px 0;">${labels[index]}：${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</h3><p>此牌卡的詳細牌義內容待補充。</p></div>`;
-                   return;
-                }
-                const onPageData = fullCardData.on_page;
-                const emailDetailData = fullCardData.email_detail;
-                const positionMeaning = card.isReversed ? onPageData.reversed_meaning : onPageData.upright_meaning;
-                const positionTitle = card.isReversed ? '逆位提醒' : '正位指引';
-                const detailAnalysis = card.isReversed ? emailDetailData.reversed_analysis : emailDetailData.upright_analysis;
-                const detailAnalysisTitle = card.isReversed ? '【逆位牌義詳解】' : '【正位牌義詳解】';
-                html += `<div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #374151;"><h3 style="font-size: 20px; font-weight: 600; color: #a5b4fc; margin: 0 0 16px 0;">${labels[index]}：${card.name} ${card.isReversed ? '(逆位)' : '(正位)'}</h3><div style="background-color: #2d3748; padding: 15px; border-radius: 6px; margin-bottom: 24px;"><p style="margin: 0 0 12px 0; font-style: italic; color: #d1d5db;">${onPageData.description}</p><div style="padding-top:12px; border-top: 1px dashed #4b5563;"><p style="margin: 10px 0; font-size: 14px; color: #e5e7eb;"><b>${onPageData.keywords}</b></p><p style="margin: 0; font-size: 14px; color: #e5e7eb;"><b>${onPageData.concept}</b></p></div><div style="padding-top: 12px; margin-top:12px; border-top: 1px dashed #4b5563;"><p style="margin: 0; font-weight: bold; color: #a5b4fc;">${positionTitle}:</p><p style="margin: 5px 0 0 0; color: #e5e7eb;">${positionMeaning.replace(/\／/g, '<br>')}</p></div></div><div style="line-height: 1.8; color: #d1d5db; font-size: 15px;"><p><b>【牌義推演與象徵】</b><br>${nl2br(emailDetailData.symbolism)}</p><p><b>${detailAnalysisTitle}</b><br>${nl2br(detailAnalysis)}</p><p><b>【代表人物與原型】</b><br>${nl2br(emailDetailData.archetype)}</p><p><b>【綜合解讀提示】</b><br>${nl2br(emailDetailData.summary)}</p></div></div>`;
-            });
-            return html;
-        }
-
-        const modal = document.getElementById('card-modal');
-        const closeModalBtn = document.getElementById('close-modal');
-        spreadSingleCardBtn.addEventListener('click', (e) => selectSpread('single-card', e.currentTarget));
-        spreadCauseEffectBtn.addEventListener('click', (e) => selectSpread('cause-effect', e.currentTarget));
-        spreadTimelineBtn.addEventListener('click', (e) => selectSpread('timeline', e.currentTarget));
+        (function(){ emailjs.init("nYyZS-Q-jokmGLMfM"); })();
+        
+        spreadButtonsContainer.addEventListener('click', (e) => {
+            if (e.target && e.target.matches('button[data-spread]')) {
+                selectSpread(e.target.dataset.spread, e.target);
+            }
+        });
+        
         drawCardsBtn.addEventListener('click', drawCards);
-        document.getElementById('send-email-btn').addEventListener('click', sendEmail);
+        sendEmailBtn.addEventListener('click', sendEmail);
+
         closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
         modal.addEventListener('click', (e) => {
             if (e.target === modal) modal.classList.add('hidden');
         });
+        
+        populateCardGrids();
     });
     </script>
 
 </body>
 </html>
+
 
