@@ -144,9 +144,10 @@
             
             <div class="text-center mb-8">
                 <p class="text-lg text-indigo-300 mb-4">第一步：選擇您的牌陣</p>
-                <div class="flex justify-center space-x-4">
+                <div class="flex justify-center flex-wrap gap-4">
+                    <button id="spread-single-card" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition duration-300">單張牌占卜 (1張)</button>
                     <button id="spread-cause-effect" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition duration-300">因果牌陣 (2張)</button>
-                    <button id="spread-timeline" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition duration-300">時間之流牌陣 (3張)</button>
+                    <button id="spread-timeline" class="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition duration-300">時間之流 (3張)</button>
                 </div>
             </div>
              <p id="spread-description" class="text-center text-indigo-200 mb-8 h-12"></p>
@@ -300,8 +301,8 @@
             { name: "錢幣一", type: "錢幣", img: "https://i.urusai.cc/yPTi0.jpeg" }, { name: "錢幣二", type: "錢幣", img: "https://i.urusai.cc/3rS9e.jpeg" }, { name: "錢幣三", type: "錢幣", img: "https://i.urusai.cc/pwnsC.jpeg" }, { name: "錢幣四", type: "錢幣", img: "https://i.urusai.cc/3lLGp.jpeg" }, { name: "錢幣五", type: "錢幣", img: "https://i.urusai.cc/KLMdF.jpeg" }, { name: "錢幣六", type: "錢幣", img: "https://i.urusai.cc/zJf26.jpeg" }, { name: "錢幣七", type: "錢幣", img: "https://i.urusai.cc/yuTan.jpeg" }, { name: "錢幣八", type: "錢幣", img: "https://i.urusai.cc/rEiV6.jpeg" }, { name: "錢幣九", type: "錢幣", img: "https://i.urusai.cc/Q67US.jpeg" }, { name: "錢幣十", type: "錢幣", img: "https://i.urusai.cc/WWGb3.jpeg" }, { name: "錢幣侍者", type: "錢幣", img: "https://i.urusai.cc/3PAFD.jpeg" }, { name: "錢幣騎士", type: "錢幣", img: "https://i.urusai.cc/CLKad.jpeg" }, { name: "錢幣王后", type: "錢幣", img: "https://i.urusai.cc/JEssn.jpeg" }, { name: "錢幣國王", type: "錢幣", img: "https://i.urusai.cc/WLUt7.jpeg" },
         ];
         
-        // --- 核心牌義資料庫 ---
-             const detailedCardMeanings = {
+        // --- 核心牌義資料庫 (包含全部78張牌) ---
+      const detailedCardMeanings = {
     "愚人": {
       on_page: {
         description: "一位戴著桂冠、披著色彩斑斕衣袍的年輕旅人，右手權杖挑著小包袱，左手捏著一朵白玫瑰，昂首望向遠空。腳邊白狗又吠又跳，既像提醒，也像喝采。他正大步邁向懸崖邊，遠方群山高聳未知，白日清明普照，見證著他的起程。此刻的他不顧腳下，只看天空——單純、勇敢、隨性，彷彿世界將從這一步被開啟。",
@@ -1559,6 +1560,7 @@
         let currentSpread = null;
         let drawnCardsData = [];
 
+        const spreadSingleCardBtn = document.getElementById('spread-single-card');
         const spreadCauseEffectBtn = document.getElementById('spread-cause-effect');
         const spreadTimelineBtn = document.getElementById('spread-timeline');
         const drawCardsBtn = document.getElementById('draw-cards-btn');
@@ -1604,14 +1606,18 @@
         function selectSpread(spreadType, btnElement) {
             currentSpread = spreadType;
             drawCardsBtn.disabled = false;
-            [spreadCauseEffectBtn, spreadTimelineBtn].forEach(btn => btn.classList.remove('active-spread'));
+            [spreadSingleCardBtn, spreadCauseEffectBtn, spreadTimelineBtn].forEach(btn => btn.classList.remove('active-spread'));
             btnElement.classList.add('active-spread');
-            if (spreadType === 'cause-effect') {
-                spreadDescription.textContent = '「因果牌陣」將抽出兩張牌，分別代表事件的原因與可能的結果。';
+            
+            if (spreadType === 'single-card') {
+                spreadDescription.textContent = '抽出單張牌，作為每日指引或針對簡單問題的核心建議。';
+                drawCardsBtn.textContent = '抽取單張牌';
+            } else if (spreadType === 'cause-effect') {
+                spreadDescription.textContent = '抽出兩張牌，分別代表事件的原因與可能的結果。';
                 drawCardsBtn.textContent = '抽取因果牌陣';
-            } else {
-                spreadDescription.textContent = '「時間之流牌陣」將抽出三張牌，分別代表事件的過去、現在與未來。';
-                drawCardsBtn.textContent = '抽取時間之流牌陣';
+            } else { // timeline
+                spreadDescription.textContent = '抽出三張牌，分別代表「過去」、「現在」、「未來」。';
+                drawCardsBtn.textContent = '抽取時間之流';
             }
             displaySpreadPlaceholders(spreadType);
             analysisAndEmailArea.classList.add('hidden');
@@ -1620,7 +1626,7 @@
         
         function displaySpreadPlaceholders(spreadType) {
             const drawnCardsDiv = document.getElementById('drawn-cards');
-            const labels = spreadType === 'cause-effect' ? ['原因 (因)', '結果 (果)'] : ['過去', '現在', '未來'];
+            const labels = getSpreadLabels(spreadType);
             drawnCardsDiv.innerHTML = '';
             labels.forEach(label => {
                 const placeholder = document.createElement('div');
@@ -1633,7 +1639,12 @@
         function drawCards() {
             if (!currentSpread || Object.keys(detailedCardMeanings).length === 0) return;
             const shuffledDeck = [...allCards].sort(() => 0.5 - Math.random());
-            const numCards = currentSpread === 'cause-effect' ? 2 : 3;
+            
+            let numCards;
+            if (currentSpread === 'single-card') numCards = 1;
+            else if (currentSpread === 'cause-effect') numCards = 2;
+            else numCards = 3;
+
             drawnCardsData = [];
             for (let i = 0; i < numCards; i++) {
                 const card = shuffledDeck.pop();
@@ -1647,12 +1658,19 @@
             return detailedCardMeanings[cardName] || null;
         }
 
+        function getSpreadLabels(spreadType) {
+            if (spreadType === 'single-card') return ['每日指引'];
+            if (spreadType === 'cause-effect') return ['原因 (因)', '結果 (果)'];
+            if (spreadType === 'timeline') return ['過去', '現在', '未來'];
+            return [];
+        }
+
         function displayReadingResult() {
             const drawnCardsDiv = document.getElementById('drawn-cards');
             const analysisResultDiv = document.getElementById('analysis-result');
             drawnCardsDiv.innerHTML = '';
             analysisResultDiv.innerHTML = '';
-            const labels = currentSpread === 'cause-effect' ? ['原因 (因)', '結果 (果)'] : ['過去', '現在', '未來'];
+            const labels = getSpreadLabels(currentSpread);
             
             drawnCardsData.forEach((card, index) => {
                 const cardEl = document.createElement('div');
@@ -1720,8 +1738,14 @@
             sendBtn.disabled = true;
             sendBtn.textContent = '寄送中...';
             emailStatus.textContent = '';
-            const spreadName = currentSpread === 'cause-effect' ? '因果牌陣' : '時間之流牌陣';
-            const labels = currentSpread === 'cause-effect' ? ['原因 (因)', '結果 (果)'] : ['過去', '現在', '未來'];
+            
+            let spreadName;
+            if (currentSpread === 'single-card') spreadName = '單張牌占卜';
+            else if (currentSpread === 'cause-effect') spreadName = '因果牌陣';
+            else spreadName = '時間之流';
+
+            const labels = getSpreadLabels(currentSpread);
+            
             const templateParams = {
                 to_email: emailInput.value,
                 spread_name: spreadName,
@@ -1775,6 +1799,7 @@
 
         const modal = document.getElementById('card-modal');
         const closeModalBtn = document.getElementById('close-modal');
+        spreadSingleCardBtn.addEventListener('click', (e) => selectSpread('single-card', e.currentTarget));
         spreadCauseEffectBtn.addEventListener('click', (e) => selectSpread('cause-effect', e.currentTarget));
         spreadTimelineBtn.addEventListener('click', (e) => selectSpread('timeline', e.currentTarget));
         drawCardsBtn.addEventListener('click', drawCards);
